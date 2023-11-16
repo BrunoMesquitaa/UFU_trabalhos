@@ -16,7 +16,7 @@ output:
 ## Abrindo base:
 
 ```{r}
-horas_trabalhadas <- read.delim("C:/Users/onurb/Downloads/horas_trabalhadas.txt")
+horas_trabalhadas <- read.delim("dados/horas_trabalhadas.txt")
 ```
 
 ## Separando Variaveis

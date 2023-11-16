@@ -24,7 +24,7 @@ if (!require('car'))install.packages("car");library(car)
 # Dados Consumo Cerveja
 
 ```{r}
-Consumo_cerveja <- read_csv("C:/Users/onurb/Downloads/Consumo_cerveja.csv",   
+Consumo_cerveja <- read_csv("dados/Consumo_cerveja.csv",   
                             locale = locale(decimal_mark = ","))
 ```
 
