@@ -1,0 +1,287 @@
+---
+title: "Regressão Horas Trabalhadas"
+author: "Bruno Mesquita dos Santos"
+date: "2023-11-06"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+---
+
+# Regressão Horas Trabalhadas
+
+------------------------------------------------------------------------
+
+## Abrindo base:
+
+```{r}
+horas_trabalhadas <- read.delim("C:/Users/onurb/Downloads/horas_trabalhadas.txt")
+```
+
+## Separando Variaveis
+
+```{r}
+y  = horas_trabalhadas$y
+x1 = horas_trabalhadas$XI
+x2 = horas_trabalhadas$x2
+x3 = horas_trabalhadas$x3
+x4 = horas_trabalhadas$x4
+x5 = horas_trabalhadas$x5
+x6 = horas_trabalhadas$x6
+
+rm(horas_trabalhadas)
+```
+
+## Passo 1: Escolhendo a base (MRLS)
+
+### Modelo x1
+
+```{r}
+mx1 <- lm(y~x1)
+summary(mx1)
+```
+
+### Modelo x2
+
+```{r}
+mx2 <- lm(y~x2) 
+summary(mx2)
+```
+
+### Modelo x3
+
+```{r}
+mx3 <- lm(y~x3) 
+summary(mx3)
+```
+
+### Modelo x4
+
+```{r}
+mx4 <- lm(y~x4) 
+summary(mx4)
+```
+
+### Modelo x5
+
+```{r}
+mx5 <- lm(y~x5) 
+summary(mx5)
+```
+
+### Modelo x6
+
+```{r}
+mx6 <- lm(y~x6) 
+summary(mx6)
+```
+
+### Conclusão:
+Como melhor modelo MRLS podemos escolher a variavel x1, com o maior *F: 9.388* e menor *p-value: 0.004792*, também possui o maior R quadrado apesar de não ser muito alto.
+
+---
+
+## Passo 2: Etapa de forward
+
+### Adicionar x2
+
+```{r}
+mx1x2 <- lm(y~x1+x2)
+summary(aov(mx1x2)) 
+anova(mx1, mx1x2)
+```
+
+### Adicionar x3
+
+```{r}
+mx1x3 <- lm(y~x1+x3)
+summary(aov(mx1x3)) 
+anova(mx1, mx1x3)
+```
+
+### Adicionar x4
+
+```{r}
+mx1x4 <- lm(y~x1+x4)
+summary(aov(mx1x4)) 
+anova(mx1, mx1x4)
+
+```
+
+### Adicionar x5
+
+```{r}
+mx1x5 <- lm(y~x1+x5)
+summary(aov(mx1x5)) 
+anova(mx1, mx1x5)
+```
+
+### Adicionar x6
+
+```{r}
+mx1x6 <- lm(y~x1+x6)
+summary(aov(mx1x6)) 
+anova(mx1, mx1x6)
+```
+
+### Conclusão:
+O Fmax é igual *4.113* e é o modelo mais provável de ser adicionado.
+
+---
+
+## Passo 3: Validando a variavel
+
+### F tabelado com 1 gl e o gl do residuo do modelo completo (y~x1+x5) a 90% de confiança
+
+```{r}
+qf(0.9, 1 , 27)
+```
+
+### Conclusão:
+Fmax(4.113) > Ftab(2.901192) aceitamos o modelo completo como *y~x1+x5*
+
+---
+
+## Passo 3: Etapa de backward
+
+### Tentar remover x1
+
+```{r}
+mx5x1 <- lm(y~x5+x1)
+anova(mx5x1, mx1) 
+```
+### Conclusão:
+A 90% de confiança, não é significativo voltar ao modelo com apenas x5.
+
+## Passo 4: Etapa de forward
+
+### Adicionar x2
+
+```{r}
+mx1x5x2 <- lm(y~x1+x5+x2)
+summary(aov(mx1x5x2)) 
+anova(mx1x5, mx1x5x2)
+```
+
+### Adicionar x3
+
+```{r}
+mx1x5x3 <- lm(y~x1+x5+x3)
+summary(aov(mx1x5x3)) 
+anova(mx1x5, mx1x5x3)
+```
+
+### Adicionar x4
+
+```{r}
+mx1x5x4 <- lm(y~x1+x5+x4)
+summary(aov(mx1x5x4)) 
+anova(mx1x5, mx1x5x4)
+```
+
+### Adicionar x6
+
+```{r}
+mx1x5x6 <- lm(y~x1+x5+x6)
+summary(aov(mx1x5x6))
+anova(mx1x5, mx1x5x6)
+```
+
+### Conclusão:
+O Fmax é igual *5.115* e é o modelo mais provável de ser adicionado.
+
+---
+
+## Passo 5: Validando a variavel
+
+### F tabelado com 1 gl e o gl do residuo do modelo completo (y~x1+x5+x4) a 90% de confiança
+
+```{r}
+qf(0.9, 1 , 26)
+```
+
+### Conclusão:
+Fmax(5.115) > Ftab(2.909132) aceitamos o modelo completo como *y~x1+x5+x4*
+
+---
+
+## Passo 6: Etapa de backward
+
+### Tentar remover x1
+
+```{r}
+mrx4x5 <- lm(y~x4+x5)
+anova(mrx4x5 , mx1x5x4) 
+```
+
+### Tentar remover x5
+
+```{r}
+mrx4x1 <- lm(y~x4+x1)
+anova(mrx4x1 , mx1x5x4) 
+```
+
+### Conclusão:
+A 90% de confiança, escolhemos o Fcalc mínimo para comparar com Ftab, 
+Fmin(7.6468) > Ftab(2.901192[1 gl 27]), rejeita-se Ho, e conclui-se que não se pode tirar a variável x5. Então mantém o modelo com modelo com *y~x1+x5+x4*
+
+---
+
+## Passo 7: Etapa de forward
+
+### Adicionar x2
+
+```{r}
+mx1x5x4x2 <- lm(y~x1+x5+x4+x2)
+summary(aov(mx1x5x4x2)) 
+anova(mx1x5x4, mx1x5x4x2)
+```
+
+### Adicionar x3
+
+```{r}
+mx1x5x4x3 <- lm(y~x1+x5+x4+x3)
+summary(aov(mx1x5x4x3)) 
+anova(mx1x5x4, mx1x5x4x3)
+```
+### Adicionar x6
+
+```{r}
+mx1x5x4x6 <- lm(y~x1+x5+x4+x6)
+summary(aov(mx1x5x4x6)) 
+anova(mx1x5x4, mx1x5x4x6)
+```
+
+### Conclusão:
+O Fmax é igual *2.378* e é o modelo mais provável de ser adicionado.
+
+---
+
+## Passo 8: Validando a variavel
+
+### F tabelado com 1 gl e o gl do residuo do modelo completo (y~x1+x5+x4+x2) a 90% de confiança
+
+```{r}
+qf(0.9, 1 , 25)
+```
+
+### Conclusão:
+Fmax(2.378) < Ftab(2.917745) rejeitamos o modelo completo como *y~x1+x5+x4+x2*
+
+---
+
+## Conclusão final
+
+O modelo final é y~x1+x5+x4 e possuí os seguintes resultados:
+
+```{r}
+summary(mx1x5x4)
+```
+
+Possuí um R-quadrado de 0.3943 o que não é muito bom já que identifica a porcentagem de variância no campo Y que é explicada pela variaveis independentes(Xs). Também tem um p-value: 0.001052 o que é possitivo pois está a baixo de 0.1 que é nosso nivel de significância.
+
+```{r}
+summary(aov(mx1x5x4))
+```
+Todos os Pr(>F) são significativos em até 0.01.

@@ -1,0 +1,404 @@
+---
+title: "Ultimo Trabalho Regressao"
+author: "Bruno Mesquita dos Santos"
+date: "2023-11-15"
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Biblioteca
+
+```{r}
+if (!require('readr'))install.packages("readr");library(readr)
+if (!require('faraway'))install.packages("faraway");library(faraway)
+if (!require('car'))install.packages("car");library(car)
+```
+
+# Dados Consumo Cerveja
+
+```{r}
+Consumo_cerveja <- read_csv("C:/Users/onurb/Downloads/Consumo_cerveja.csv",   
+                            locale = locale(decimal_mark = ","))
+```
+
+# Funções
+
+```{r}
+rm_accent <- function(x) iconv(x, to = "ASCII//TRANSLIT")
+```
+
+# Limpeza
+
+```{r}
+names(Consumo_cerveja) <- tolower(
+  gsub(' ','_',gsub('[)]','',gsub('[(]','',rm_accent(names(Consumo_cerveja)))))
+  )
+Consumo_cerveja <- na.omit(Consumo_cerveja)
+```
+
+# Separar Bases
+
+```{r}
+data <- Consumo_cerveja$data
+temperatura_media_c <- Consumo_cerveja$temperatura_media_c
+temperatura_minima_c <- Consumo_cerveja$temperatura_minima_c
+temperatura_maxima_c <- Consumo_cerveja$temperatura_maxima_c
+precipitacao_mm <- Consumo_cerveja$precipitacao_mm
+final_de_semana <- Consumo_cerveja$final_de_semana
+consumo_de_cerveja_litros <- Consumo_cerveja$consumo_de_cerveja_litros
+```
+
+# Análise de Regressão
+
+## Questão A
+
+Ajuste um modelo de regressão linear múltipla considerando todas as variáveis independentes. Verifique a multicolinearidade entre as variáveis independentes, e se há necessidade de excluir alguma delas por esse critério. Em caso afirmativo, ajuste novo modelo sem essa variável. Apresente todos os valores de Vif.
+
+```{r}
+modelo_completo = lm(consumo_de_cerveja_litros ~ data+temperatura_media_c+
+                       temperatura_minima_c+temperatura_maxima_c+
+                       precipitacao_mm+final_de_semana)
+
+summary(modelo_completo)
+summary(aov(modelo_completo))
+```
+
+### Anotacão:
+
+Se o VIF for igual a 1 não há multicolinearidade entre os fatores, mas se o VIF for maior que 1, as preditoras podem estar moderadamente correlacionadas. A saída acima mostra que o VIF para os fatores de publicação e anos são cerca de 1.5, o que indica alguma correlação, mas não o suficiente para se preocupar demais com isso. Um VIF entre 5 e 10 indica alta correlação, o que pode ser problemático. E se o VIF for acima de 10, você pode assumir que os coeficientes de regressão estão mal estimados devido à multicolinearidade.
+
+### VIF:
+
+```{r}
+vif <- 1/(1-summary(modelo_completo)[["r.squared"]])
+paste('vif =',vif)
+```
+
+Com relação ao nosso modelo temos um VIF para o modelo completo de 3.7254 o que quer dizer que ele é moderadamente correlacionadas.
+
+```{r}
+vif(modelo_completo)
+```
+
+Porém quando vamos para um VIF mais detalhado temos em temperatura_media_c, temperatura_minima_c, temperatura_maxima_c uma multicolinearidade alto, o que faz sentido devido serem dados de temperaturas tendo a mesmas representatividade, logo removeria dois ficando é com a temperatura_media_c.
+
+### Removendo a multicolinearidade
+
+```{r}
+modelo_completo = lm(consumo_de_cerveja_litros ~ data+temperatura_media_c+
+                       precipitacao_mm+final_de_semana)
+
+summary(modelo_completo)
+summary(aov(modelo_completo))
+```
+
+### Conclusão:
+
+```{r}
+vif <- 1/(1-summary(modelo_completo)[["r.squared"]])
+paste('vif =',vif)
+```
+
+Com relação ao nosso modelo temos um VIF para o modelo completo de 3.058 o que quer dizer que ele é moderadamente correlacionadas.
+
+```{r}
+vif(modelo_completo)
+```
+
+Porém quando vamos para um VIF mais detalhado temos que não há multicolinearidade entre os fatores.
+
+## Questão B
+
+Escreva as hipóteses, decisão e conclusão do teste F para o modelo. Use o pvalor da saída do software para o teste. Faça a interpretação do coeficiente de determinação.
+
+```{r}
+summary(modelo_completo)
+```
+
+### Hipótese:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: \beta1 = \beta2 = \beta3 = \beta4 = 0 \\ 
+H1: pelo \ menos \ um \ \beta \ difere \ de \ zero \\ 
+\end{array}\right.
+$$
+
+### Conclusão
+
+-   Dado que nosso modelo completo possuí p-value: \< 2.2e-16, podemos concluir que há qualquer nível de significância ele rejeita H0, logo pelo menos um beta difere de zero (2.2e-16 \< 0.001). Temos uma F calc de 185.2 o que é bem expressivo e positivo.
+-   Sendo R-squared = 0.673 e Adjusted R-squared = 0.6694, o que relativamente aceitavel já que identifica a porcentagem a variabilidade no campo Y (consumo_de_cerveja_litros) que é explicada pela variaveis regressoras.
+
+## Questão C
+
+Escreva as hipóteses, decisão e conclusão do teste t para todos os parâmetros do modelo. Decida quais variáveis não são importantes neste modelo e porque. Use 5% de significância, e considere a regra do pvalor para decisão.
+
+### Hipótese 1:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: \beta1 = 0 \\ 
+H1: \beta1 \neq 0 \\ 
+\end{array}\right.
+$$
+
+```{r}
+modelo_uma_var = lm(consumo_de_cerveja_litros ~ data)
+summary(modelo_uma_var)
+```
+
+Concluimos a um nível de 5% de significância que aceita-se H0 dado que p-value = 0.4069 é maior que o nível significância de 0.05. Logo o coeficiente angular 𝛽1 é estatisticamente igual a 0, desta forma a variável data não serve para predizer os valores de y(consumo_de_cerveja_litros).
+
+### Hipótese 2:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: \beta2 = 0 \\ 
+H1: \beta2 \neq 0 \\ 
+\end{array}\right.
+$$
+
+```{r}
+modelo_uma_var = lm(consumo_de_cerveja_litros ~ temperatura_media_c)
+summary(modelo_uma_var)
+```
+
+Concluimos a um nível de 5% de significância que rejeita-se H0 dado que p-value = 2.2e-16 é menor que o nível significância de 0.05. Logo o coeficiente angular 𝛽2 é estatisticamente diferente de 0, desta forma a variável temperatura_media_c é útil para predizer os valores de y(consumo_de_cerveja_litros).
+
+### Hipótese 3:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: \beta3 = 0 \\ 
+H1: \beta3 \neq 0 \\ 
+\end{array}\right.
+$$
+
+```{r}
+modelo_uma_var = lm(consumo_de_cerveja_litros ~ precipitacao_mm)
+summary(modelo_uma_var)
+```
+
+Concluimos a um nível de 5% de significância que rejeita-se H0 dado que p-value = 0.0001954 é menor que o nível significância de 0.05. Logo o coeficiente angular 𝛽3 é estatisticamente diferente de 0, desta forma a variável precipitacao_mm é útil para predizer os valores de y(consumo_de_cerveja_litros).
+
+### Hipótese 4:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: \beta4 = 0 \\ 
+H1: \beta4 \neq 0 \\ 
+\end{array}\right.
+$$
+
+```{r}
+modelo_uma_var = lm(consumo_de_cerveja_litros ~ final_de_semana)
+summary(modelo_uma_var)
+```
+
+Concluimos a um nível de 5% de significância que rejeita-se H0 dado que p-value = 2.2e-16 é menor que o nível significância de 0.05. Logo o coeficiente angular 𝛽4 é estatisticamente diferente de 0, desta forma a variável final_de_semana é útil para predizer os valores de y(consumo_de_cerveja_litros).
+
+## Questão D
+
+Utilize o método Backward de seleção de variáveis para encontrar o melhor conjunto de preditoras para essa variável y. Escreva a equação do modelo ajustado e a interpretação, para todas as variáveis que restaram no modelo. Considere 5% de significância. Apresente os valores dos testes em cada passo, com a interpretação.
+
+Modelo completo -\> consumo_de_cerveja_litros \~ data+temperatura_media_c+precipitacao_mm+final_de_semana
+
+### Removendo data
+
+```{r}
+modelo_sem_data = lm(consumo_de_cerveja_litros ~ temperatura_media_c+precipitacao_mm+final_de_semana)
+anova(modelo_completo,modelo_sem_data)
+```
+
+### Removendo temperatura_media_c
+
+```{r}
+modelo_sem_data = lm(consumo_de_cerveja_litros ~ data++precipitacao_mm+final_de_semana)
+anova(modelo_completo,modelo_sem_data)
+```
+
+### Removendo precipitacao_mm
+
+```{r}
+modelo_sem_data = lm(consumo_de_cerveja_litros ~ data+temperatura_media_c+final_de_semana)
+anova(modelo_completo,modelo_sem_data)
+```
+
+### Removendo final_de_semana
+
+```{r}
+modelo_sem_data = lm(consumo_de_cerveja_litros ~ data+temperatura_media_c+precipitacao_mm)
+anova(modelo_completo,modelo_sem_data)
+
+qf(0.95,1,361)
+```
+
+### Conclusão:
+
+Dado que nosso menor F calc foi 13.016, devemos compara com F Tab de parametro (0.95,1,361). Logo temos que A 95% de confiança, escolhemos o Fcalc mínimo para comparar com Ftab, Fmin(13.016) \> Ftab(3.867347), nesse casos rejeita-se Ho, e conclui-se que não se pode tirar a variável data. Então mantém o modelo com modelo completo.
+
+## Questão E
+
+Utilize o método Forward de seleção de variáveis para encontrar o melhor conjunto de preditoras para essa variável y. Escreva a equação do modelo ajustado e compare com o modelo obtido em (d).
+
+Me basendo no F da questão C o melhor modelo reduzido para se começar é:
+
+```{r}
+modelo_reduzido = lm(consumo_de_cerveja_litros ~ temperatura_media_c)
+```
+
+### Adicionar data
+
+```{r}
+modelo_mais_data = lm(consumo_de_cerveja_litros ~ temperatura_media_c+data)
+summary(aov(modelo_mais_data))
+anova(modelo_reduzido,modelo_mais_data)
+```
+
+### Adicionar precipitacao_mm
+
+```{r}
+modelo_mais_precipitacao_mm = lm(consumo_de_cerveja_litros ~ temperatura_media_c+precipitacao_mm)
+anova(modelo_reduzido,modelo_mais_precipitacao_mm)
+```
+
+### Adicionar final_de_semana
+
+```{r}
+modelo_mais_final_de_semana = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana)
+anova(modelo_reduzido,modelo_mais_final_de_semana)
+```
+
+### Conclusão:
+
+O Fmax é igual 271.64 sendo final_de_semana o mais provável de ser adicionado.
+
+### Validando a variavel
+
+```{r}
+qf(0.95, 1 , 362)
+```
+
+####Conclusão: Fmax(271.64) \> Ftab(3.867275) aceitamos o modelo completo como consumo_de_cerveja_litros \~ temperatura_media_c+final_de_semana
+
+### Novo Modelo Reduzido
+
+```{r}
+modelo_reduzido = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana)
+```
+
+### Adicionar data
+
+```{r}
+modelo_mais_data = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana+data)
+summary(aov(modelo_mais_data))
+anova(modelo_reduzido,modelo_mais_data)
+```
+
+### Adicionar precipitacao_mm
+
+```{r}
+modelo_mais_precipitacao_mm = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana+precipitacao_mm)
+anova(modelo_reduzido,modelo_mais_precipitacao_mm)
+```
+
+### Conclusão:
+
+O Fmax é igual 46.716 sendo precipitacao_mm o mais provável de ser adicionado.
+
+### Validando a variavel
+
+```{r}
+qf(0.95, 1 , 361)
+```
+
+####Conclusão: Fmax(46.716) \> Ftab(3.867347) aceitamos o modelo completo como consumo_de_cerveja_litros \~ temperatura_media_c+final_de_semana+precipitacao_mm
+
+### Novo Modelo Reduzido
+
+```{r}
+modelo_reduzido = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana+precipitacao_mm)
+```
+
+### Adicionar data
+
+```{r}
+modelo_mais_data = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana+precipitacao_mm+data)
+summary(aov(modelo_mais_data))
+anova(modelo_reduzido,modelo_mais_data)
+```
+
+### Conclusão:
+
+O Fmax é igual 13.016 sendo data provável de ser adicionado.
+
+### Validando a variavel
+
+```{r}
+qf(0.95, 1 , 360)
+```
+
+#### Conclusão:
+
+Fmax(13.016) \> Ftab(3.867419) aceitamos o modelo completo como consumo_de_cerveja_litros \~ temperatura_media_c+final_de_semana+precipitacao_mm+data
+
+### Conclusão:
+
+O Modelo da questão D e E chegaram no mesmo resultado.
+
+## Questão F
+Escolha um dos modelos ajustados em (d) ou (e) e faça a análise completa dos resíduos
+do modelo, verificando todas as pressuposições do modelo. Apresente os gráficos dos
+resíduos padronizados contra: y estimado, variáveis independentes, ordem das
+observações. Apresente todas as conclusões. Complemente as conclusões com os testes
+de Shapiro Wilk, Durbin Watson. Discuta sobre a necessidade de transformação na
+variável resposta, ou de usar mínimos quadrados ponderados, justificando. 
+
+
+```{r}
+residuos <- residuals(modelo_completo)
+```
+
+### Gráfico de Dispersão dos Resíduos vs. Valores Ajustados
+```{r}
+plot(modelo_completo$fitted.values, residuos)
+```
+Os pontos se distribuem de maneira aleatória, logo a variabilidade dos resíduos é constante em diferentes níveis de predição (homocedasticidade).
+Caso houvesse padrões (ex.: os resíduos aumentando à medida que os valores ajustados aumentam), isso indicaria a presença de heterocedasticidade, o que poderia sugerir que o modelo não está capturando toda a variabilidade nos dados.
+
+```{r}
+plot(data, residuos)
+```
+```{r}
+plot(temperatura_media_c, residuos)
+```
+```{r}
+plot(precipitacao_mm , residuos)
+```
+```{r}
+plot(final_de_semana , residuos)
+```
+```{r}
+plot(1:length(residuos), residuos)
+```
+```{r}
+shapiro.test(residuos)
+```
+```{r}
+durbinWatsonTest(modelo_completo)
+```
+
+
+
+
+
+
+
+
