@@ -19,6 +19,8 @@ knitr::opts_chunk$set(echo = TRUE)
 if (!require('readr'))install.packages("readr");library(readr)
 if (!require('faraway'))install.packages("faraway");library(faraway)
 if (!require('car'))install.packages("car");library(car)
+if (!require('olsrr'))install.packages("olsrr");library(olsrr)
+if (!require('DescTools'))install.packages("DescTools");library(DescTools)
 ```
 
 # Dados Consumo Cerveja
@@ -220,21 +222,24 @@ anova(modelo_completo,modelo_sem_data)
 ### Removendo temperatura_media_c
 
 ```{r}
-modelo_sem_data = lm(consumo_de_cerveja_litros ~ data++precipitacao_mm+final_de_semana)
+modelo_sem_data = lm(consumo_de_cerveja_litros ~ 
+                       data++precipitacao_mm+final_de_semana)
 anova(modelo_completo,modelo_sem_data)
 ```
 
 ### Removendo precipitacao_mm
 
 ```{r}
-modelo_sem_data = lm(consumo_de_cerveja_litros ~ data+temperatura_media_c+final_de_semana)
+modelo_sem_data = lm(consumo_de_cerveja_litros ~ 
+                       data+temperatura_media_c+final_de_semana)
 anova(modelo_completo,modelo_sem_data)
 ```
 
 ### Removendo final_de_semana
 
 ```{r}
-modelo_sem_data = lm(consumo_de_cerveja_litros ~ data+temperatura_media_c+precipitacao_mm)
+modelo_sem_data = lm(consumo_de_cerveja_litros ~ 
+                       data+temperatura_media_c+precipitacao_mm)
 anova(modelo_completo,modelo_sem_data)
 
 qf(0.95,1,361)
@@ -265,14 +270,16 @@ anova(modelo_reduzido,modelo_mais_data)
 ### Adicionar precipitacao_mm
 
 ```{r}
-modelo_mais_precipitacao_mm = lm(consumo_de_cerveja_litros ~ temperatura_media_c+precipitacao_mm)
+modelo_mais_precipitacao_mm = lm(consumo_de_cerveja_litros ~ 
+                                   temperatura_media_c+precipitacao_mm)
 anova(modelo_reduzido,modelo_mais_precipitacao_mm)
 ```
 
 ### Adicionar final_de_semana
 
 ```{r}
-modelo_mais_final_de_semana = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana)
+modelo_mais_final_de_semana = lm(consumo_de_cerveja_litros ~ 
+                                   temperatura_media_c+final_de_semana)
 anova(modelo_reduzido,modelo_mais_final_de_semana)
 ```
 
@@ -286,18 +293,22 @@ O Fmax é igual 271.64 sendo final_de_semana o mais provável de ser adicionado.
 qf(0.95, 1 , 362)
 ```
 
-####Conclusão: Fmax(271.64) \> Ftab(3.867275) aceitamos o modelo completo como consumo_de_cerveja_litros \~ temperatura_media_c+final_de_semana
+#### Conclusão:
+
+Fmax(271.64) \> Ftab(3.867275) aceitamos o modelo completo como consumo_de_cerveja_litros \~ temperatura_media_c+final_de_semana
 
 ### Novo Modelo Reduzido
 
 ```{r}
-modelo_reduzido = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana)
+modelo_reduzido = lm(consumo_de_cerveja_litros ~ 
+                       temperatura_media_c+final_de_semana)
 ```
 
 ### Adicionar data
 
 ```{r}
-modelo_mais_data = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana+data)
+modelo_mais_data = lm(consumo_de_cerveja_litros ~ 
+                        temperatura_media_c+final_de_semana+data)
 summary(aov(modelo_mais_data))
 anova(modelo_reduzido,modelo_mais_data)
 ```
@@ -319,7 +330,9 @@ O Fmax é igual 46.716 sendo precipitacao_mm o mais provável de ser adicionado.
 qf(0.95, 1 , 361)
 ```
 
-####Conclusão: Fmax(46.716) \> Ftab(3.867347) aceitamos o modelo completo como consumo_de_cerveja_litros \~ temperatura_media_c+final_de_semana+precipitacao_mm
+#### Conclusão:
+
+Fmax(46.716) \> Ftab(3.867347) aceitamos o modelo completo como consumo_de_cerveja_litros \~ temperatura_media_c+final_de_semana+precipitacao_mm
 
 ### Novo Modelo Reduzido
 
@@ -354,51 +367,353 @@ Fmax(13.016) \> Ftab(3.867419) aceitamos o modelo completo como consumo_de_cerve
 O Modelo da questão D e E chegaram no mesmo resultado.
 
 ## Questão F
-Escolha um dos modelos ajustados em (d) ou (e) e faça a análise completa dos resíduos
-do modelo, verificando todas as pressuposições do modelo. Apresente os gráficos dos
-resíduos padronizados contra: y estimado, variáveis independentes, ordem das
-observações. Apresente todas as conclusões. Complemente as conclusões com os testes
-de Shapiro Wilk, Durbin Watson. Discuta sobre a necessidade de transformação na
-variável resposta, ou de usar mínimos quadrados ponderados, justificando. 
 
+Escolha um dos modelos ajustados em (d) ou (e) e faça a análise completa dos resíduos do modelo, verificando todas as pressuposições do modelo. Apresente os gráficos dos resíduos padronizados contra: y estimado, variáveis independentes, ordem das observações. Apresente todas as conclusões. Complemente as conclusões com os testes de Shapiro Wilk, Durbin Watson. Discuta sobre a necessidade de transformação na variável resposta, ou de usar mínimos quadrados ponderados, justificando.
 
 ```{r}
 residuos <- residuals(modelo_completo)
 ```
 
 ### Gráfico de Dispersão dos Resíduos vs. Valores Ajustados
+
 ```{r}
 plot(modelo_completo$fitted.values, residuos)
 ```
-Os pontos se distribuem de maneira aleatória, logo a variabilidade dos resíduos é constante em diferentes níveis de predição (homocedasticidade).
-Caso houvesse padrões (ex.: os resíduos aumentando à medida que os valores ajustados aumentam), isso indicaria a presença de heterocedasticidade, o que poderia sugerir que o modelo não está capturando toda a variabilidade nos dados.
+
+#### Conclusões:
+
+Os pontos distribuem-se de forma aleatória, indicando assim homocedasticidade e homogênea, ou seja, a variabilidade dos resíduos é constante em vários níveis de predição. Se houvesse padrões, como um aumento nos resíduos à medida que os valores ajustados aumentam, isso sugeriria a presença de heterocedasticidade. Tal cenário poderia indicar que o residuo do modelo não possui variabilidade costante.
+
+(Solução: fazer transformação em Y ou usar Mínimos Quadrados Ponderados.)
+
+A homocedasticidade é provavelmente violada se...
+
+1.  Se os resíduos aumentam ou diminuem com os valores ajustados.
+2.  Se os pontos formam uma curva ao redor de zero e não estão dispostos aleatoriamente.
+3.  Poucos pontos no gráfico ficam muito distantes dos demais.
+
+### Gráfico de Dispersão dos Resíduos vs. Data
 
 ```{r}
 plot(data, residuos)
 ```
+
+#### Conclusões:
+
+1.  Os resíduos se distribuem aleatoriamente em torno de zero.
+2.  Não se observa nenhum padrão.
+3.  Isso indica que: a variância é constante; e a relação entre as variáveis é linear.
+
+### Gráfico de Dispersão dos Resíduos vs. Temperatura_media_c
+
 ```{r}
 plot(temperatura_media_c, residuos)
 ```
+
+#### Conclusões:
+
+Tem uma leve diferença entre os valores de 15 a 20 e depois tem uma aumento, pode repesentar uma variância não constante(Vereficar se é significativo com a professora).
+
+1.  Os resíduos se distribuem aleatoriamente em torno de zero.
+2.  Não se observa nenhum padrão.
+3.  Isso indica que: a variância é constante; e a relação entre as variáveis é linear.
+
+### Gráfico de Dispersão dos Resíduos vs. precipitacao_mm
+
 ```{r}
 plot(precipitacao_mm , residuos)
 ```
+
+Conclusões:
+
+Possui uma concentraçao no zero e tem uma leve diferença entre os valores de 0 a 20, em seguida tem uma diminuição, pode repesentar uma variância não constante (Vereficar se é significativo com a professora).
+
+1.  Os resíduos se distribuem aleatoriamente em torno de zero.
+2.  Não se observa nenhum padrão.
+3.  Isso indica que: a variância é constante; e a relação entre as variáveis é linear.
+
+### Gráfico de Dispersão dos Resíduos vs. final_de_semana
+
 ```{r}
 plot(final_de_semana , residuos)
 ```
+
+#### Conclusões:
+
+1.  Os resíduos se distribuem aleatoriamente em torno de zero.
+2.  Não se observa nenhum padrão.
+3.  Isso indica que: a variância é constante; e a relação entre as variáveis é linear.
+
+# Gráfico de dispersão dos resíduos vs. ordem das observações
+
 ```{r}
 plot(1:length(residuos), residuos)
 ```
+
+A dispersão aleatória dos resíduos ao longo da ordem das observações mostra que o modelo está bem ajustado aos dados. Não há indicações de que o modelo esteja cometendo erros de maneira sistemática ou previsível.
+
+### Gráfico QQ-plots
+
+```{r}
+qqnorm(residuos)
+qqline(residuos) 
+```
+
+#### Conclusões:
+
+Podemos ver que os resíduos tendem a se desviar um pouco da linha perto das caudas, o que pode indicar que eles não estão normalmente distribuídos.
+
+### Teste de normalidade dos resíduos (Shapiro-Wilk)
+
 ```{r}
 shapiro.test(residuos)
 ```
+
+#### Hipótese:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: Os \ erros \ têm \ distribuição \ normal \\ 
+H1: Os \ erros \ não \ têm \ distribuição \ normal \\ 
+\end{array}\right.
+$$ 
+
+##### Conclusões: 
+
+Como resultado, o teste retornará a estatística W, que terá um valor de significância associada, o valor-p. Para dizer que uma distribuição é normal, o valor p precisa ser maior do que 0,05. Logo rejeitar a hipótese nula concluimos que os erros não tem distribuição normal.
+
+### Teste de autocorrelação dos resíduos (Durbin-Watson)
+
 ```{r}
 durbinWatsonTest(modelo_completo)
 ```
 
+#### Hipótese:
 
+$$
+\left\{ \begin{array}{rc} 
+H0: 𝜌 = 0 \\ 
+H1: 𝜌 \neq 0 \\ 
+\end{array}\right.
+$$ 
 
+##### Conclusões: 
 
+Ele faz uma estatística que testa se eles são independentes. Aí, o p-valor que a gente compara é com 0.05, nesse caso, o p-valor não foi menor do que 0.05. Logo, a gente não tem evidência suficiente para rejeitar a hipótese nula. Se eu não consigo rejeitar é porque eu não tenho evidências para dizer que elas não são independentes. Então, eu aceito que são independentes e não há autocorrelação significativa.
 
+### Conclusões Geral:
 
+É possível que seja necessário transformar a variável de resposta para abordar a falta de normalidade nos resíduos, facilitando assim a aprovação no teste de Shapiro-Wilk. No entanto, em relação à aplicação de mínimos quadrados ponderados, a evidência de falta de homocedasticidade nos resíduos não é conclusiva, necessitando de mais testes.
+
+## Questão G
+
+Realize a análise de diagnóstico do modelo, apresentando os gráficos de todas as medidas estudadas (DFFITS, DFBETAS, Distância de Cook, leverage, resíduos estudentizados). Interprete cada uma usando o gráfico e CALCULE o ponto de corte visto no livro para comparar.
+
+### DFFIT
+
+```{r}
+ols_plot_dffits(modelo_completo)
+```
+
+#### Conclusões:
+
+DFFIT - diferença nos ajustes, é usado para identificar pontos de dados influentes. Ele quantifica o número de desvios padrão que o valor ajustado muda quando o i-ésimo ponto de dados é omitido.
+
+Pontos ultrapassao a linha podem ser considerados pontos influentes.
+
+### DFBETAS
+
+```{r}
+ols_plot_dfbetas(modelo_completo)
+```
+
+#### Conclusões:
+
+O gráfico sugere que vários pontos têm uma influência considerável na estimativa da inclinação para x. Neste caso, a inspeção visual da relação linear entre x e y é possível. O painel mostra a influência de cada observação nas estimativas dos quatro coeficientes de regressão. As estatísticas são padronizadas para que todos os gráficos possam utilizar a mesma escala vertical. As linhas horizontais são desenhadas em ±2/sqrt(n). As observações são chamadas de influentes se tiverem uma estatística DFBETA que exceda esse valor.
+
+### Cook's distance
+
+```{r}
+ols_plot_cooksd_chart(modelo_completo)
+```
+
+#### Conclusões:
+
+Gráfico de barras da distância de Cook para detectar observações que influenciam fortemente os valores ajustados do modelo. A distância de Cook foi introduzida pelo estatístico americano R Dennis Cook em 1977. É usada para identificar pontos de dados influentes. Depende tanto do resíduo quanto da alavancagem, ou seja, leva em consideração tanto o valor x quanto o valor y da observação. Passos para calcular a distância de Cook:
+
+-   exclua as observações uma de cada vez.
+-   reajuste o modelo de regressão no restante (n−1) observações
+-   examine quanto todos os valores ajustados mudam quando a i-ésima observação é excluída.
+
+Um ponto de dados com distância Cook grande indica que o ponto de dados influencia fortemente os valores ajustados.
+
+### Studentized Residuals vs Leverage Plot
+
+```{r}
+ols_plot_resid_lev(modelo_completo)
+```
+
+#### Conclusões:
+
+Gráfico para detecção de outliers e/ou observações com alta influencia
+
+### Resíduos Studentizados
+
+```{r}
+ols_plot_resid_stud(modelo_completo)
+```
+
+#### Conclusões:
+
+Gráfico para detecção de outliers. Resíduos excluídos estudantis (ou resíduos estudantis externamente) são os resíduos excluídos divididos por seu desvio padrão estimado. Os resíduos estudantis serão mais eficazes para detectar observações Y periféricas do que os resíduos padronizados. Se uma observação tiver um resíduo estudantil externamente maior que 3 (em valor absoluto), podemos chamá-la de outlier.
+
+# Regressão Logística
+
+## Questão A
+
+Escreva a equação do modelo ajustado, capaz de descrever o relacionamento existente entre a ocorrência de sinistro e as variáveis em estudo.
+
+```{r}
+sinistro <- read.delim("dados/dadosSinistro.txt")
+```
+
+```{r}
+modelo=glm(Sinistro~Idade+ECivil+Sexo,data = sinistro,
+           family=binomial(link="logit"))
+summary(modelo)
+```
+
+## Questão B
+
+Escreva as hipóteses, decisão e conclusão do teste F para o modelo. Use o pvalor da saída do software para o teste. Faça a interpretação do coeficiente de determinação.
+
+#### Conclusões:
+
+O modelo apresenta Pr(\>\|z\|) é menos que o nível significância de 0.05. Logo os parâmetros são significativos. O modelo possui um Intercepto positivo o que siginifica que ele tem uma curva crescente.
+
+```{r}
+PseudoR2(modelo,which="all")
+```
+
+Quanto menores, melhor é o modelo.
+
+O AIC estima a quantidade relativa de informação perdida por um determinado modelo: quanto menos informações um modelo perde, maior a qualidade desse modelo e menor a pontuação AIC.
+
+## Questão C
+
+Teste a significância do modelo por meio do Teste de razão de verossimilhança, apresentando as hipóteses e conclusão. Teste a significância dos parâmetros do modelo e apresente as conclusões, em termos das variáveis. Use 1% de significância.
+
+```{r}
+paste0('TRV = ',modelo[["null.deviance"]]-modelo[["deviance"]],' e ', 
+       qchisq(0.95,3), ' há 95% e 3p')
+```
+
+#### Conclusões:
+
+Dado que o TRV é maior que qui quadrado há 95% e com 3 parametros o modelo como um todo é significativo.
+
+Lembrando:
+
+Considere dois modelos um "completo" (Mc ) e o outro "restrito" (Mr) quanto à quantidade de parâmetros.Então a estatística de teste é:
+
+TRV = 2 [log(L(Mc )) − log(L(Mr))].
+
+$$
+\left\{ \begin{array}{rc} 
+H0: Igualdade \ entre \ os \ dois \ modelos \\ 
+H1: Difernça \ entre \ os \ dois \ modelos \\ 
+\end{array}\right.
+$$
+
+Sob a hipóotese de igualdade entre os dois modelos, TRV tem distribuição aproximada de Qui-Quadrado com graus de liberdade igual ao número de restrições (diferença entre as quantidades de parâmetros).
+
+## Questão D
+
+Interprete as razões de chance e os intervalos de confiança obtidas para todos os parâmetros;
+
+### Intervalos de confiança
+
+```{r}
+ICbeta=confint.default(modelo,level=0.95)
+ICbeta
+
+```
+
+#### Conclusões:
+
+Isso significa que você tem 95% de confiança de que a verdadeiro valor de beta/intercepto esteja entre os valores acima. O valor zero pertence ao intervalo, logo os parâmetros de beta sao estatisticamente igual a zero.
+
+### odds ratio -- OR (chance)
+
+```{r}
+OR=exp(modelo$coefficients)
+OR
+```
+
+#### Conclusões:
+
+A chance de haver sinistro(1) é de cerca de 0.83 vezes menos para cada ano de acrescentado na idade; A chance de haver sinistro(1) é de cerca de 0.027 vezes menos quando estado civil igual a Solteiro(1), ou seja, as chances de a haver sinistro é de 97.3% menor se for Solteiro; A chance de haver sinistro(1) é de cerca de 40.55 vezes maior se o sexo for Feminino(1).
+
+### Intervalos de confiança para as razões de chance
+
+```{r}
+ICOR=exp(ICbeta);
+round((cbind(OR, ICOR)),3)
+```
+
+#### Conclusões:
+
+Isso significa que você tem 95% de confiança de que a verdadeiro valor de odds ratio esteja entre os valores acima.
+
+## Questão E
+
+Estime a probabilidade de sinistro associada a um cliente do sexo masculino,
+casado com 25 anos de idade
+
+```{r}
+
+p_sexo = 0
+p_ec = 0
+p_idade = 25
+
+razaopiest = exp(modelo[["coefficients"]]['(Intercept)'][[1]] + 
+                 (modelo[["coefficients"]]['Idade'][[1]] * p_idade) +
+                 (modelo[["coefficients"]]['ECivil'][[1]] * p_ec) +
+                 (modelo[["coefficients"]]['Sexo'][[1]] * p_sexo)
+                 )
+
+paste0('Estimação da probabilidade de sinistro = ',
+       (razaopiest /(1 + razaopiest) * 100))
+```
+
+## Questão F
+
+Para o mesmo cliente citado no item anterior, qual a probabilidade de sinistro se
+ele for solteiro? 
+
+```{r}
+
+p_sexo = 0
+p_ec = 1
+p_idade = 25
+
+razaopiest = exp(modelo[["coefficients"]]['(Intercept)'][[1]] + 
+                 (modelo[["coefficients"]]['Idade'][[1]] * p_idade) +
+                 (modelo[["coefficients"]]['ECivil'][[1]] * p_ec) +
+                 (modelo[["coefficients"]]['Sexo'][[1]] * p_sexo)
+                 )
+
+paste0('Estimação da probabilidade de sinistro = ',
+       (razaopiest /(1 + razaopiest) * 100))
+```
+
+## Questão G
+
+Compare os resultados obtidos nos dois itens anteriores e reflita sobre as
+estratégias que poderiam ser adotadas pela companhia para atrair novos clientes. 
+
+#### Conclusões:
+
+Com base na estimação anterioir e para os parametros colocados a prova podemos dizer que para a companhia seria benefico focar em atrai solteiros dados que a chance de haver sinistro diminui muito.
 
 

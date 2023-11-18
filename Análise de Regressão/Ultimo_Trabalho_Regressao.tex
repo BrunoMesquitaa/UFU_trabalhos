@@ -1,0 +1,1525 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Ultimo Trabalho Regressao},
+  pdfauthor={Bruno Mesquita dos Santos},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Ultimo Trabalho Regressao}
+\author{Bruno Mesquita dos Santos}
+\date{2023-11-15}
+
+\begin{document}
+\maketitle
+
+\hypertarget{biblioteca}{%
+\section{Biblioteca}\label{biblioteca}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{\textquotesingle{}readr\textquotesingle{}}\NormalTok{))}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"readr"}\NormalTok{);}\FunctionTok{library}\NormalTok{(readr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: readr
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{\textquotesingle{}faraway\textquotesingle{}}\NormalTok{))}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"faraway"}\NormalTok{);}\FunctionTok{library}\NormalTok{(faraway)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: faraway
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{\textquotesingle{}car\textquotesingle{}}\NormalTok{))}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"car"}\NormalTok{);}\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: car
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'car'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:faraway':
+## 
+##     logit, vif
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{\textquotesingle{}olsrr\textquotesingle{}}\NormalTok{))}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"olsrr"}\NormalTok{);}\FunctionTok{library}\NormalTok{(olsrr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: olsrr
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'olsrr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:faraway':
+## 
+##     hsb
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:datasets':
+## 
+##     rivers
+\end{verbatim}
+
+\hypertarget{dados-consumo-cerveja}{%
+\section{Dados Consumo Cerveja}\label{dados-consumo-cerveja}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Consumo\_cerveja }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"dados/Consumo\_cerveja.csv"}\NormalTok{,   }
+                            \AttributeTok{locale =} \FunctionTok{locale}\NormalTok{(}\AttributeTok{decimal\_mark =} \StringTok{","}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 941 Columns: 7
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## dbl  (5): Temperatura Media (C), Temperatura Minima (C), Temperatura Maxima ...
+## date (1): Data
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\hypertarget{funuxe7uxf5es}{%
+\section{Funções}\label{funuxe7uxf5es}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rm\_accent }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{iconv}\NormalTok{(x, }\AttributeTok{to =} \StringTok{"ASCII//TRANSLIT"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{limpeza}{%
+\section{Limpeza}\label{limpeza}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(Consumo\_cerveja) }\OtherTok{\textless{}{-}} \FunctionTok{tolower}\NormalTok{(}
+  \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{} \textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}\_\textquotesingle{}}\NormalTok{,}\FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}[)]\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{,}\FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}[(]\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{,}\FunctionTok{rm\_accent}\NormalTok{(}\FunctionTok{names}\NormalTok{(Consumo\_cerveja)))))}
+\NormalTok{  )}
+\NormalTok{Consumo\_cerveja }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(Consumo\_cerveja)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{separar-bases}{%
+\section{Separar Bases}\label{separar-bases}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ Consumo\_cerveja}\SpecialCharTok{$}\NormalTok{data}
+\NormalTok{temperatura\_media\_c }\OtherTok{\textless{}{-}}\NormalTok{ Consumo\_cerveja}\SpecialCharTok{$}\NormalTok{temperatura\_media\_c}
+\NormalTok{temperatura\_minima\_c }\OtherTok{\textless{}{-}}\NormalTok{ Consumo\_cerveja}\SpecialCharTok{$}\NormalTok{temperatura\_minima\_c}
+\NormalTok{temperatura\_maxima\_c }\OtherTok{\textless{}{-}}\NormalTok{ Consumo\_cerveja}\SpecialCharTok{$}\NormalTok{temperatura\_maxima\_c}
+\NormalTok{precipitacao\_mm }\OtherTok{\textless{}{-}}\NormalTok{ Consumo\_cerveja}\SpecialCharTok{$}\NormalTok{precipitacao\_mm}
+\NormalTok{final\_de\_semana }\OtherTok{\textless{}{-}}\NormalTok{ Consumo\_cerveja}\SpecialCharTok{$}\NormalTok{final\_de\_semana}
+\NormalTok{consumo\_de\_cerveja\_litros }\OtherTok{\textless{}{-}}\NormalTok{ Consumo\_cerveja}\SpecialCharTok{$}\NormalTok{consumo\_de\_cerveja\_litros}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{anuxe1lise-de-regressuxe3o}{%
+\section{Análise de Regressão}\label{anuxe1lise-de-regressuxe3o}}
+
+\hypertarget{questuxe3o-a}{%
+\subsection{Questão A}\label{questuxe3o-a}}
+
+Ajuste um modelo de regressão linear múltipla considerando todas as
+variáveis independentes. Verifique a multicolinearidade entre as
+variáveis independentes, e se há necessidade de excluir alguma delas por
+esse critério. Em caso afirmativo, ajuste novo modelo sem essa variável.
+Apresente todos os valores de Vif.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_completo }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data}\SpecialCharTok{+}\NormalTok{temperatura\_media\_c}\SpecialCharTok{+}
+\NormalTok{                       temperatura\_minima\_c}\SpecialCharTok{+}\NormalTok{temperatura\_maxima\_c}\SpecialCharTok{+}
+\NormalTok{                       precipitacao\_mm}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+
+\FunctionTok{summary}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = consumo_de_cerveja_litros ~ data + temperatura_media_c + 
+##     temperatura_minima_c + temperatura_maxima_c + precipitacao_mm + 
+##     final_de_semana)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4823.8 -1794.4  -193.9  1804.6  5514.2 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)          -60845.145  19516.939  -3.118 0.001971 ** 
+## data                      4.027      1.167   3.451 0.000625 ***
+## temperatura_media_c     -30.772    186.065  -0.165 0.868737    
+## temperatura_minima_c     46.816    110.380   0.424 0.671725    
+## temperatura_maxima_c    675.535     93.905   7.194 3.72e-12 ***
+## precipitacao_mm         -58.485      9.892  -5.913 7.86e-09 ***
+## final_de_semana        5198.875    267.020  19.470  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2298 on 358 degrees of freedom
+## Multiple R-squared:  0.7316, Adjusted R-squared:  0.7271 
+## F-statistic: 162.6 on 6 and 358 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(modelo\_completo))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       Df    Sum Sq   Mean Sq F value   Pr(>F)    
+## data                   1 1.335e+07 1.335e+07   2.528    0.113    
+## temperatura_media_c    1 2.384e+09 2.384e+09 451.367  < 2e-16 ***
+## temperatura_minima_c   1 2.540e+08 2.540e+08  48.098 1.90e-11 ***
+## temperatura_maxima_c   1 3.247e+08 3.247e+08  61.481 5.18e-14 ***
+## precipitacao_mm        1 1.752e+08 1.752e+08  33.169 1.82e-08 ***
+## final_de_semana        1 2.002e+09 2.002e+09 379.081  < 2e-16 ***
+## Residuals            358 1.891e+09 5.282e+06                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{anotacuxe3o}{%
+\subsubsection{Anotacão:}\label{anotacuxe3o}}
+
+Se o VIF for igual a 1 não há multicolinearidade entre os fatores, mas
+se o VIF for maior que 1, as preditoras podem estar moderadamente
+correlacionadas. A saída acima mostra que o VIF para os fatores de
+publicação e anos são cerca de 1.5, o que indica alguma correlação, mas
+não o suficiente para se preocupar demais com isso. Um VIF entre 5 e 10
+indica alta correlação, o que pode ser problemático. E se o VIF for
+acima de 10, você pode assumir que os coeficientes de regressão estão
+mal estimados devido à multicolinearidade.
+
+\hypertarget{vif}{%
+\subsubsection{VIF:}\label{vif}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vif }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{summary}\NormalTok{(modelo\_completo)[[}\StringTok{"r.squared"}\NormalTok{]])}
+\FunctionTok{paste}\NormalTok{(}\StringTok{\textquotesingle{}vif =\textquotesingle{}}\NormalTok{,vif)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "vif = 3.72548692094354"
+\end{verbatim}
+
+Com relação ao nosso modelo temos um VIF para o modelo completo de
+3.7254 o que quer dizer que ele é moderadamente correlacionadas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{vif}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 data  temperatura_media_c temperatura_minima_c 
+##             1.044990            24.129091             6.706766 
+## temperatura_maxima_c      precipitacao_mm      final_de_semana 
+##            11.327898             1.039824             1.003914
+\end{verbatim}
+
+Porém quando vamos para um VIF mais detalhado temos em
+temperatura\_media\_c, temperatura\_minima\_c, temperatura\_maxima\_c
+uma multicolinearidade alto, o que faz sentido devido serem dados de
+temperaturas tendo a mesmas representatividade, logo removeria dois
+ficando é com a temperatura\_media\_c.
+
+\hypertarget{removendo-a-multicolinearidade}{%
+\subsubsection{Removendo a
+multicolinearidade}\label{removendo-a-multicolinearidade}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_completo }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data}\SpecialCharTok{+}\NormalTok{temperatura\_media\_c}\SpecialCharTok{+}
+\NormalTok{                       precipitacao\_mm}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+
+\FunctionTok{summary}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = consumo_de_cerveja_litros ~ data + temperatura_media_c + 
+##     precipitacao_mm + final_de_semana)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6190.9 -1911.3  -251.5  1995.6  6504.4 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)         -69560.767  21094.827  -3.298 0.001073 ** 
+## data                     4.556      1.263   3.608 0.000353 ***
+## temperatura_media_c    854.735     41.965  20.368  < 2e-16 ***
+## precipitacao_mm        -74.587     10.681  -6.983  1.4e-11 ***
+## final_de_semana       5239.630    293.724  17.839  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2530 on 360 degrees of freedom
+## Multiple R-squared:  0.673,  Adjusted R-squared:  0.6694 
+## F-statistic: 185.2 on 4 and 360 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(modelo\_completo))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Df    Sum Sq   Mean Sq F value   Pr(>F)    
+## data                  1 1.335e+07 1.335e+07   2.087    0.149    
+## temperatura_media_c   1 2.384e+09 2.384e+09 372.581  < 2e-16 ***
+## precipitacao_mm       1 3.074e+08 3.074e+08  48.038 1.94e-11 ***
+## final_de_semana       1 2.036e+09 2.036e+09 318.216  < 2e-16 ***
+## Residuals           360 2.303e+09 6.399e+06                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{conclusuxe3o}{%
+\subsubsection{Conclusão:}\label{conclusuxe3o}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vif }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{summary}\NormalTok{(modelo\_completo)[[}\StringTok{"r.squared"}\NormalTok{]])}
+\FunctionTok{paste}\NormalTok{(}\StringTok{\textquotesingle{}vif =\textquotesingle{}}\NormalTok{,vif)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "vif = 3.05811655234158"
+\end{verbatim}
+
+Com relação ao nosso modelo temos um VIF para o modelo completo de 3.058
+o que quer dizer que ele é moderadamente correlacionadas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{vif}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                data temperatura_media_c     precipitacao_mm     final_de_semana 
+##            1.010045            1.013175            1.000704            1.002719
+\end{verbatim}
+
+Porém quando vamos para um VIF mais detalhado temos que não há
+multicolinearidade entre os fatores.
+
+\hypertarget{questuxe3o-b}{%
+\subsection{Questão B}\label{questuxe3o-b}}
+
+Escreva as hipóteses, decisão e conclusão do teste F para o modelo. Use
+o pvalor da saída do software para o teste. Faça a interpretação do
+coeficiente de determinação.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = consumo_de_cerveja_litros ~ data + temperatura_media_c + 
+##     precipitacao_mm + final_de_semana)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6190.9 -1911.3  -251.5  1995.6  6504.4 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)         -69560.767  21094.827  -3.298 0.001073 ** 
+## data                     4.556      1.263   3.608 0.000353 ***
+## temperatura_media_c    854.735     41.965  20.368  < 2e-16 ***
+## precipitacao_mm        -74.587     10.681  -6.983  1.4e-11 ***
+## final_de_semana       5239.630    293.724  17.839  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2530 on 360 degrees of freedom
+## Multiple R-squared:  0.673,  Adjusted R-squared:  0.6694 
+## F-statistic: 185.2 on 4 and 360 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\hypertarget{hipuxf3tese}{%
+\subsubsection{Hipótese:}\label{hipuxf3tese}}
+
+\[
+\left\{ \begin{array}{rc} 
+H0: \beta1 = \beta2 = \beta3 = \beta4 = 0 \\ 
+H1: pelo \ menos \ um \ \beta \ difere \ de \ zero \\ 
+\end{array}\right.
+\]
+
+\hypertarget{conclusuxe3o-1}{%
+\subsubsection{Conclusão}\label{conclusuxe3o-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Dado que nosso modelo completo possuí p-value: \textless{} 2.2e-16,
+  podemos concluir que há qualquer nível de significância ele rejeita
+  H0, logo pelo menos um beta difere de zero (2.2e-16 \textless{}
+  0.001). Temos uma F calc de 185.2 o que é bem expressivo e positivo.
+\item
+  Sendo R-squared = 0.673 e Adjusted R-squared = 0.6694, o que
+  relativamente aceitavel já que identifica a porcentagem a
+  variabilidade no campo Y (consumo\_de\_cerveja\_litros) que é
+  explicada pela variaveis regressoras.
+\end{itemize}
+
+\hypertarget{questuxe3o-c}{%
+\subsection{Questão C}\label{questuxe3o-c}}
+
+Escreva as hipóteses, decisão e conclusão do teste t para todos os
+parâmetros do modelo. Decida quais variáveis não são importantes neste
+modelo e porque. Use 5\% de significância, e considere a regra do pvalor
+para decisão.
+
+\hypertarget{hipuxf3tese-1}{%
+\subsubsection{Hipótese 1:}\label{hipuxf3tese-1}}
+
+\[
+\left\{ \begin{array}{rc} 
+H0: \beta1 = 0 \\ 
+H1: \beta1 \neq 0 \\ 
+\end{array}\right.
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_uma\_var }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data)}
+\FunctionTok{summary}\NormalTok{(modelo\_uma\_var)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = consumo_de_cerveja_litros ~ data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11094.7  -3396.6   -394.7   3309.0  12849.7 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)
+## (Intercept) -4766.744  36332.377  -0.131    0.896
+## data            1.815      2.186   0.830    0.407
+## 
+## Residual standard error: 4401 on 363 degrees of freedom
+## Multiple R-squared:  0.001896,   Adjusted R-squared:  -0.0008538 
+## F-statistic: 0.6895 on 1 and 363 DF,  p-value: 0.4069
+\end{verbatim}
+
+Concluimos a um nível de 5\% de significância que aceita-se H0 dado que
+p-value = 0.4069 é maior que o nível significância de 0.05. Logo o
+coeficiente angular 𝛽1 é estatisticamente igual a 0, desta forma a
+variável data não serve para predizer os valores de
+y(consumo\_de\_cerveja\_litros).
+
+\hypertarget{hipuxf3tese-2}{%
+\subsubsection{Hipótese 2:}\label{hipuxf3tese-2}}
+
+\[
+\left\{ \begin{array}{rc} 
+H0: \beta2 = 0 \\ 
+H1: \beta2 \neq 0 \\ 
+\end{array}\right.
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_uma\_var }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c)}
+\FunctionTok{summary}\NormalTok{(modelo\_uma\_var)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = consumo_de_cerveja_litros ~ temperatura_media_c)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9221.4 -2845.5  -315.3  2409.0  9392.5 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)          8528.91    1275.36   6.687  8.6e-11 ***
+## temperatura_media_c   794.88      59.42  13.377  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3605 on 363 degrees of freedom
+## Multiple R-squared:  0.3302, Adjusted R-squared:  0.3283 
+## F-statistic: 178.9 on 1 and 363 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Concluimos a um nível de 5\% de significância que rejeita-se H0 dado que
+p-value = 2.2e-16 é menor que o nível significância de 0.05. Logo o
+coeficiente angular 𝛽2 é estatisticamente diferente de 0, desta forma a
+variável temperatura\_media\_c é útil para predizer os valores de
+y(consumo\_de\_cerveja\_litros).
+
+\hypertarget{hipuxf3tese-3}{%
+\subsubsection{Hipótese 3:}\label{hipuxf3tese-3}}
+
+\[
+\left\{ \begin{array}{rc} 
+H0: \beta3 = 0 \\ 
+H1: \beta3 \neq 0 \\ 
+\end{array}\right.
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_uma\_var }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ precipitacao\_mm)}
+\FunctionTok{summary}\NormalTok{(modelo\_uma\_var)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = consumo_de_cerveja_litros ~ precipitacao_mm)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11415.1  -3252.5   -456.1   3227.2  12178.9 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)     25758.12     245.27 105.021  < 2e-16 ***
+## precipitacao_mm   -68.65      18.24  -3.763 0.000195 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4322 on 363 degrees of freedom
+## Multiple R-squared:  0.03755,    Adjusted R-squared:  0.0349 
+## F-statistic: 14.16 on 1 and 363 DF,  p-value: 0.0001954
+\end{verbatim}
+
+Concluimos a um nível de 5\% de significância que rejeita-se H0 dado que
+p-value = 0.0001954 é menor que o nível significância de 0.05. Logo o
+coeficiente angular 𝛽3 é estatisticamente diferente de 0, desta forma a
+variável precipitacao\_mm é útil para predizer os valores de
+y(consumo\_de\_cerveja\_litros).
+
+\hypertarget{hipuxf3tese-4}{%
+\subsubsection{Hipótese 4:}\label{hipuxf3tese-4}}
+
+\[
+\left\{ \begin{array}{rc} 
+H0: \beta4 = 0 \\ 
+H1: \beta4 \neq 0 \\ 
+\end{array}\right.
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_uma\_var }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ final\_de\_semana)}
+\FunctionTok{summary}\NormalTok{(modelo\_uma\_var)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = consumo_de_cerveja_litros ~ final_de_semana)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9655.2 -2753.2   -61.2  2524.8 11862.8 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)      23998.2      235.2  102.04   <2e-16 ***
+## final_de_semana   4924.5      440.6   11.18   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3800 on 363 degrees of freedom
+## Multiple R-squared:  0.256,  Adjusted R-squared:  0.254 
+## F-statistic: 124.9 on 1 and 363 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Concluimos a um nível de 5\% de significância que rejeita-se H0 dado que
+p-value = 2.2e-16 é menor que o nível significância de 0.05. Logo o
+coeficiente angular 𝛽4 é estatisticamente diferente de 0, desta forma a
+variável final\_de\_semana é útil para predizer os valores de
+y(consumo\_de\_cerveja\_litros).
+
+\hypertarget{questuxe3o-d}{%
+\subsection{Questão D}\label{questuxe3o-d}}
+
+Utilize o método Backward de seleção de variáveis para encontrar o
+melhor conjunto de preditoras para essa variável y. Escreva a equação do
+modelo ajustado e a interpretação, para todas as variáveis que restaram
+no modelo. Considere 5\% de significância. Apresente os valores dos
+testes em cada passo, com a interpretação.
+
+Modelo completo -\textgreater{} consumo\_de\_cerveja\_litros
+\textasciitilde{}
+data+temperatura\_media\_c+precipitacao\_mm+final\_de\_semana
+
+\hypertarget{removendo-data}{%
+\subsubsection{Removendo data}\label{removendo-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\FunctionTok{anova}\NormalTok{(modelo\_completo,modelo\_sem\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ data + temperatura_media_c + precipitacao_mm + 
+##     final_de_semana
+## Model 2: consumo_de_cerveja_litros ~ temperatura_media_c + precipitacao_mm + 
+##     final_de_semana
+##   Res.Df        RSS Df Sum of Sq      F    Pr(>F)    
+## 1    360 2303474722                                  
+## 2    361 2386755919 -1 -83281197 13.016 0.0003526 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{removendo-temperatura_media_c}{%
+\subsubsection{Removendo
+temperatura\_media\_c}\label{removendo-temperatura_media_c}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data}\SpecialCharTok{++}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\FunctionTok{anova}\NormalTok{(modelo\_completo,modelo\_sem\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ data + temperatura_media_c + precipitacao_mm + 
+##     final_de_semana
+## Model 2: consumo_de_cerveja_litros ~ data + +precipitacao_mm + final_de_semana
+##   Res.Df        RSS Df   Sum of Sq      F    Pr(>F)    
+## 1    360 2303474722                                    
+## 2    361 4957860285 -1 -2654385563 414.84 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{removendo-precipitacao_mm}{%
+\subsubsection{Removendo
+precipitacao\_mm}\label{removendo-precipitacao_mm}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data}\SpecialCharTok{+}\NormalTok{temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\FunctionTok{anova}\NormalTok{(modelo\_completo,modelo\_sem\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ data + temperatura_media_c + precipitacao_mm + 
+##     final_de_semana
+## Model 2: consumo_de_cerveja_litros ~ data + temperatura_media_c + final_de_semana
+##   Res.Df        RSS Df  Sum of Sq      F    Pr(>F)    
+## 1    360 2303474722                                   
+## 2    361 2615517078 -1 -312042356 48.768 1.398e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{removendo-final_de_semana}{%
+\subsubsection{Removendo
+final\_de\_semana}\label{removendo-final_de_semana}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data}\SpecialCharTok{+}\NormalTok{temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
+\FunctionTok{anova}\NormalTok{(modelo\_completo,modelo\_sem\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ data + temperatura_media_c + precipitacao_mm + 
+##     final_de_semana
+## Model 2: consumo_de_cerveja_litros ~ data + temperatura_media_c + precipitacao_mm
+##   Res.Df        RSS Df   Sum of Sq      F    Pr(>F)    
+## 1    360 2303474722                                    
+## 2    361 4339592657 -1 -2036117936 318.22 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qf}\NormalTok{(}\FloatTok{0.95}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{361}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.867347
+\end{verbatim}
+
+\hypertarget{conclusuxe3o-2}{%
+\subsubsection{Conclusão:}\label{conclusuxe3o-2}}
+
+Dado que nosso menor F calc foi 13.016, devemos compara com F Tab de
+parametro (0.95,1,361). Logo temos que A 95\% de confiança, escolhemos o
+Fcalc mínimo para comparar com Ftab, Fmin(13.016) \textgreater{}
+Ftab(3.867347), nesse casos rejeita-se Ho, e conclui-se que não se pode
+tirar a variável data. Então mantém o modelo com modelo completo.
+
+\hypertarget{questuxe3o-e}{%
+\subsection{Questão E}\label{questuxe3o-e}}
+
+Utilize o método Forward de seleção de variáveis para encontrar o melhor
+conjunto de preditoras para essa variável y. Escreva a equação do modelo
+ajustado e compare com o modelo obtido em (d).
+
+Me basendo no F da questão C o melhor modelo reduzido para se começar é:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_reduzido }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{adicionar-data}{%
+\subsubsection{Adicionar data}\label{adicionar-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_mais\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{data)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(modelo\_mais\_data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Df    Sum Sq   Mean Sq F value Pr(>F)    
+## temperatura_media_c   1 2.326e+09 2.326e+09 181.188 <2e-16 ***
+## data                  1 7.143e+07 7.143e+07   5.564 0.0189 *  
+## Residuals           362 4.647e+09 1.284e+07                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ temperatura_media_c
+## Model 2: consumo_de_cerveja_litros ~ temperatura_media_c + data
+##   Res.Df        RSS Df Sum of Sq      F  Pr(>F)  
+## 1    363 4718394688                              
+## 2    362 4646965029  1  71429659 5.5644 0.01886 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{adicionar-precipitacao_mm}{%
+\subsubsection{Adicionar
+precipitacao\_mm}\label{adicionar-precipitacao_mm}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_mais\_precipitacao\_mm }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
+\FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_precipitacao\_mm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ temperatura_media_c
+## Model 2: consumo_de_cerveja_litros ~ temperatura_media_c + precipitacao_mm
+##   Res.Df        RSS Df Sum of Sq      F    Pr(>F)    
+## 1    363 4718394688                                  
+## 2    362 4413993821  1 304400867 24.965 9.107e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{adicionar-final_de_semana}{%
+\subsubsection{Adicionar
+final\_de\_semana}\label{adicionar-final_de_semana}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_mais\_final\_de\_semana }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_final\_de\_semana)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ temperatura_media_c
+## Model 2: consumo_de_cerveja_litros ~ temperatura_media_c + final_de_semana
+##   Res.Df        RSS Df  Sum of Sq      F    Pr(>F)    
+## 1    363 4718394688                                   
+## 2    362 2695619426  1 2022775262 271.64 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{conclusuxe3o-3}{%
+\subsubsection{Conclusão:}\label{conclusuxe3o-3}}
+
+O Fmax é igual 271.64 sendo final\_de\_semana o mais provável de ser
+adicionado.
+
+\hypertarget{validando-a-variavel}{%
+\subsubsection{Validando a variavel}\label{validando-a-variavel}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qf}\NormalTok{(}\FloatTok{0.95}\NormalTok{, }\DecValTok{1}\NormalTok{ , }\DecValTok{362}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.867275
+\end{verbatim}
+
+\hypertarget{conclusuxe3o-4}{%
+\paragraph{Conclusão:}\label{conclusuxe3o-4}}
+
+Fmax(271.64) \textgreater{} Ftab(3.867275) aceitamos o modelo completo
+como consumo\_de\_cerveja\_litros \textasciitilde{}
+temperatura\_media\_c+final\_de\_semana
+
+\hypertarget{novo-modelo-reduzido}{%
+\subsubsection{Novo Modelo Reduzido}\label{novo-modelo-reduzido}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_reduzido }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{adicionar-data-1}{%
+\subsubsection{Adicionar data}\label{adicionar-data-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_mais\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{data)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(modelo\_mais\_data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Df    Sum Sq   Mean Sq F value   Pr(>F)    
+## temperatura_media_c   1 2.326e+09 2.326e+09  321.03  < 2e-16 ***
+## final_de_semana       1 2.023e+09 2.023e+09  279.19  < 2e-16 ***
+## data                  1 8.010e+07 8.010e+07   11.06 0.000975 ***
+## Residuals           361 2.616e+09 7.245e+06                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ temperatura_media_c + final_de_semana
+## Model 2: consumo_de_cerveja_litros ~ temperatura_media_c + final_de_semana + 
+##     data
+##   Res.Df        RSS Df Sum of Sq      F    Pr(>F)    
+## 1    362 2695619426                                  
+## 2    361 2615517078  1  80102349 11.056 0.0009747 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{adicionar-precipitacao_mm-1}{%
+\subsubsection{Adicionar
+precipitacao\_mm}\label{adicionar-precipitacao_mm-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_mais\_precipitacao\_mm }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
+\FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_precipitacao\_mm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ temperatura_media_c + final_de_semana
+## Model 2: consumo_de_cerveja_litros ~ temperatura_media_c + final_de_semana + 
+##     precipitacao_mm
+##   Res.Df        RSS Df Sum of Sq      F    Pr(>F)    
+## 1    362 2695619426                                  
+## 2    361 2386755919  1 308863507 46.716 3.508e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{conclusuxe3o-5}{%
+\subsubsection{Conclusão:}\label{conclusuxe3o-5}}
+
+O Fmax é igual 46.716 sendo precipitacao\_mm o mais provável de ser
+adicionado.
+
+\hypertarget{validando-a-variavel-1}{%
+\subsubsection{Validando a variavel}\label{validando-a-variavel-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qf}\NormalTok{(}\FloatTok{0.95}\NormalTok{, }\DecValTok{1}\NormalTok{ , }\DecValTok{361}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.867347
+\end{verbatim}
+
+\hypertarget{conclusuxe3o-6}{%
+\paragraph{Conclusão:}\label{conclusuxe3o-6}}
+
+Fmax(46.716) \textgreater{} Ftab(3.867347) aceitamos o modelo completo
+como consumo\_de\_cerveja\_litros \textasciitilde{}
+temperatura\_media\_c+final\_de\_semana+precipitacao\_mm
+
+\hypertarget{novo-modelo-reduzido-1}{%
+\subsubsection{Novo Modelo Reduzido}\label{novo-modelo-reduzido-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_reduzido }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{adicionar-data-2}{%
+\subsubsection{Adicionar data}\label{adicionar-data-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_mais\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{data)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(modelo\_mais\_data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Df    Sum Sq   Mean Sq F value   Pr(>F)    
+## temperatura_media_c   1 2.326e+09 2.326e+09  363.50  < 2e-16 ***
+## final_de_semana       1 2.023e+09 2.023e+09  316.13  < 2e-16 ***
+## precipitacao_mm       1 3.089e+08 3.089e+08   48.27 1.75e-11 ***
+## data                  1 8.328e+07 8.328e+07   13.02 0.000353 ***
+## Residuals           360 2.303e+09 6.399e+06                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: consumo_de_cerveja_litros ~ temperatura_media_c + final_de_semana + 
+##     precipitacao_mm
+## Model 2: consumo_de_cerveja_litros ~ temperatura_media_c + final_de_semana + 
+##     precipitacao_mm + data
+##   Res.Df        RSS Df Sum of Sq      F    Pr(>F)    
+## 1    361 2386755919                                  
+## 2    360 2303474722  1  83281197 13.016 0.0003526 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{conclusuxe3o-7}{%
+\subsubsection{Conclusão:}\label{conclusuxe3o-7}}
+
+O Fmax é igual 13.016 sendo data provável de ser adicionado.
+
+\hypertarget{validando-a-variavel-2}{%
+\subsubsection{Validando a variavel}\label{validando-a-variavel-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qf}\NormalTok{(}\FloatTok{0.95}\NormalTok{, }\DecValTok{1}\NormalTok{ , }\DecValTok{360}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.867419
+\end{verbatim}
+
+\hypertarget{conclusuxe3o-8}{%
+\paragraph{Conclusão:}\label{conclusuxe3o-8}}
+
+Fmax(13.016) \textgreater{} Ftab(3.867419) aceitamos o modelo completo
+como consumo\_de\_cerveja\_litros \textasciitilde{}
+temperatura\_media\_c+final\_de\_semana+precipitacao\_mm+data
+
+\hypertarget{conclusuxe3o-9}{%
+\subsubsection{Conclusão:}\label{conclusuxe3o-9}}
+
+O Modelo da questão D e E chegaram no mesmo resultado.
+
+\hypertarget{questuxe3o-f}{%
+\subsection{Questão F}\label{questuxe3o-f}}
+
+Escolha um dos modelos ajustados em (d) ou (e) e faça a análise completa
+dos resíduos do modelo, verificando todas as pressuposições do modelo.
+Apresente os gráficos dos resíduos padronizados contra: y estimado,
+variáveis independentes, ordem das observações. Apresente todas as
+conclusões. Complemente as conclusões com os testes de Shapiro Wilk,
+Durbin Watson. Discuta sobre a necessidade de transformação na variável
+resposta, ou de usar mínimos quadrados ponderados, justificando.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{residuos }\OtherTok{\textless{}{-}} \FunctionTok{residuals}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-valores-ajustados}{%
+\subsubsection{Gráfico de Dispersão dos Resíduos vs.~Valores
+Ajustados}\label{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-valores-ajustados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(modelo\_completo}\SpecialCharTok{$}\NormalTok{fitted.values, residuos)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+\hypertarget{conclusuxf5es}{%
+\paragraph{Conclusões:}\label{conclusuxf5es}}
+
+Os pontos distribuem-se de forma aleatória, indicando assim
+homocedasticidade e homogênea, ou seja, a variabilidade dos resíduos é
+constante em vários níveis de predição. Se houvesse padrões, como um
+aumento nos resíduos à medida que os valores ajustados aumentam, isso
+sugeriria a presença de heterocedasticidade. Tal cenário poderia indicar
+que o residuo do modelo não possui variabilidade costante.
+
+(Solução: fazer transformação em Y ou usar Mínimos Quadrados
+Ponderados.)
+
+A homocedasticidade é provavelmente violada se\ldots{}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Se os resíduos aumentam ou diminuem com os valores ajustados.
+\item
+  Se os pontos formam uma curva ao redor de zero e não estão dispostos
+  aleatoriamente.
+\item
+  Poucos pontos no gráfico ficam muito distantes dos demais.
+\end{enumerate}
+
+\hypertarget{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-data}{%
+\subsubsection{Gráfico de Dispersão dos Resíduos
+vs.~Data}\label{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(data, residuos)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-35-1.pdf}
+
+\hypertarget{conclusuxf5es-1}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Os resíduos se distribuem aleatoriamente em torno de zero.
+\item
+  Não se observa nenhum padrão.
+\item
+  Isso indica que: a variância é constante; e a relação entre as
+  variáveis é linear.
+\end{enumerate}
+
+\hypertarget{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-temperatura_media_c}{%
+\subsubsection{Gráfico de Dispersão dos Resíduos
+vs.~Temperatura\_media\_c}\label{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-temperatura_media_c}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(temperatura\_media\_c, residuos)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-36-1.pdf}
+
+\hypertarget{conclusuxf5es-2}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-2}}
+
+Tem uma leve diferença entre os valores de 15 a 20 e depois tem uma
+aumento, pode repesentar uma variância não constante(Vereficar se é
+significativo com a professora).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Os resíduos se distribuem aleatoriamente em torno de zero.
+\item
+  Não se observa nenhum padrão.
+\item
+  Isso indica que: a variância é constante; e a relação entre as
+  variáveis é linear.
+\end{enumerate}
+
+\hypertarget{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-precipitacao_mm}{%
+\subsubsection{Gráfico de Dispersão dos Resíduos
+vs.~precipitacao\_mm}\label{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-precipitacao_mm}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(precipitacao\_mm , residuos)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+Conclusões:
+
+Possui uma concentraçao no zero e tem uma leve diferença entre os
+valores de 0 a 20, em seguida tem uma diminuição, pode repesentar uma
+variância não constante (Vereficar se é significativo com a professora).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Os resíduos se distribuem aleatoriamente em torno de zero.
+\item
+  Não se observa nenhum padrão.
+\item
+  Isso indica que: a variância é constante; e a relação entre as
+  variáveis é linear.
+\end{enumerate}
+
+\hypertarget{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-final_de_semana}{%
+\subsubsection{Gráfico de Dispersão dos Resíduos
+vs.~final\_de\_semana}\label{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-final_de_semana}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(final\_de\_semana , residuos)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-38-1.pdf}
+
+\hypertarget{conclusuxf5es-3}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Os resíduos se distribuem aleatoriamente em torno de zero.
+\item
+  Não se observa nenhum padrão.
+\item
+  Isso indica que: a variância é constante; e a relação entre as
+  variáveis é linear.
+\end{enumerate}
+
+\hypertarget{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-ordem-das-observauxe7uxf5es}{%
+\section{Gráfico de dispersão dos resíduos vs.~ordem das
+observações}\label{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-ordem-das-observauxe7uxf5es}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(residuos), residuos)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+A dispersão aleatória dos resíduos ao longo da ordem das observações
+mostra que o modelo está bem ajustado aos dados. Não há indicações de
+que o modelo esteja cometendo erros de maneira sistemática ou
+previsível.
+
+\hypertarget{gruxe1fico-qq-plots}{%
+\subsubsection{Gráfico QQ-plots}\label{gruxe1fico-qq-plots}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqnorm}\NormalTok{(residuos)}
+\FunctionTok{qqline}\NormalTok{(residuos) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+\hypertarget{conclusuxf5es-4}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-4}}
+
+Podemos ver que os resíduos tendem a se desviar um pouco da linha perto
+das caudas, o que pode indicar que eles não estão normalmente
+distribuídos.
+
+\hypertarget{teste-de-normalidade-dos-resuxedduos-shapiro-wilk}{%
+\subsubsection{Teste de normalidade dos resíduos
+(Shapiro-Wilk)}\label{teste-de-normalidade-dos-resuxedduos-shapiro-wilk}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{shapiro.test}\NormalTok{(residuos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuos
+## W = 0.98964, p-value = 0.01106
+\end{verbatim}
+
+\hypertarget{hipuxf3tese-5}{%
+\paragraph{Hipótese:}\label{hipuxf3tese-5}}
+
+\[
+\left\{ \begin{array}{rc} 
+H0: Os \ erros \ têm \ distribuição \ normal \\ 
+H1: Os \ erros \ não \ têm \ distribuição \ normal \\ 
+\end{array}\right.
+\] \#\#\#\#\# Conclusões: Como resultado, o teste retornará a
+estatística W, que terá um valor de significância associada, o
+valor-p.~Para dizer que uma distribuição é normal, o valor p precisa ser
+maior do que 0,05. Logo rejeitar a hipótese nula concluimos que os erros
+não tem distribuição normal.
+
+\hypertarget{teste-de-autocorrelauxe7uxe3o-dos-resuxedduos-durbin-watson}{%
+\subsubsection{Teste de autocorrelação dos resíduos
+(Durbin-Watson)}\label{teste-de-autocorrelauxe7uxe3o-dos-resuxedduos-durbin-watson}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{durbinWatsonTest}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  lag Autocorrelation D-W Statistic p-value
+##    1      0.03100611      1.919447   0.378
+##  Alternative hypothesis: rho != 0
+\end{verbatim}
+
+\hypertarget{hipuxf3tese-6}{%
+\paragraph{Hipótese:}\label{hipuxf3tese-6}}
+
+\[
+\left\{ \begin{array}{rc} 
+H0: 𝜌 = 0 \\ 
+H1: 𝜌 \neq 0 \\ 
+\end{array}\right.
+\] \#\#\#\#\# Conclusões: Ele faz uma estatística que testa se eles são
+independentes. Aí, o p-valor que a gente compara é com 0.05, nesse caso,
+o p-valor não foi menor do que 0.05. Logo, a gente não tem evidência
+suficiente para rejeitar a hipótese nula. Se eu não consigo rejeitar é
+porque eu não tenho evidências para dizer que elas não são
+independentes. Então, eu aceito que são independentes e não há
+autocorrelação significativa.
+
+\hypertarget{conclusuxf5es-geral}{%
+\subsubsection{Conclusões Geral:}\label{conclusuxf5es-geral}}
+
+É possível que seja necessário transformar a variável de resposta para
+abordar a falta de normalidade nos resíduos, facilitando assim a
+aprovação no teste de Shapiro-Wilk. No entanto, em relação à aplicação
+de mínimos quadrados ponderados, a evidência de falta de
+homocedasticidade nos resíduos não é conclusiva, necessitando de mais
+testes.
+
+\hypertarget{dffit}{%
+\subsubsection{DFFIT}\label{dffit}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ols\_plot\_dffits}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-43-1.pdf}
+
+\hypertarget{conclusuxf5es-5}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-5}}
+
+DFFIT - diferença nos ajustes, é usado para identificar pontos de dados
+influentes. Ele quantifica o número de desvios padrão que o valor
+ajustado muda quando o i-ésimo ponto de dados é omitido.
+
+Pontos ultrapassao a linha podem ser considerados pontos influentes.
+
+\hypertarget{dfbetas}{%
+\subsubsection{DFBETAS}\label{dfbetas}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ols\_plot\_dfbetas}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-44-2.pdf}
+
+\hypertarget{conclusuxf5es-6}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-6}}
+
+O gráfico sugere que vários pontos têm uma influência considerável na
+estimativa da inclinação para x. Neste caso, a inspeção visual da
+relação linear entre x e y é possível. O painel mostra a influência de
+cada observação nas estimativas dos quatro coeficientes de regressão. As
+estatísticas são padronizadas para que todos os gráficos possam utilizar
+a mesma escala vertical. As linhas horizontais são desenhadas em
+±2/sqrt(n). As observações são chamadas de influentes se tiverem uma
+estatística DFBETA que exceda esse valor.
+
+\hypertarget{cooks-distance}{%
+\subsubsection{Cook's distance}\label{cooks-distance}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ols\_plot\_cooksd\_chart}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-45-1.pdf}
+
+\hypertarget{conclusuxf5es-7}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-7}}
+
+Gráfico de barras da distância de Cook para detectar observações que
+influenciam fortemente os valores ajustados do modelo. A distância de
+Cook foi introduzida pelo estatístico americano R Dennis Cook em 1977. É
+usada para identificar pontos de dados influentes. Depende tanto do
+resíduo quanto da alavancagem, ou seja, leva em consideração tanto o
+valor x quanto o valor y da observação. Passos para calcular a distância
+de Cook:
+
+\begin{itemize}
+\tightlist
+\item
+  exclua as observações uma de cada vez.
+\item
+  reajuste o modelo de regressão no restante (n−1) observações
+\item
+  examine quanto todos os valores ajustados mudam quando a i-ésima
+  observação é excluída.
+\end{itemize}
+
+Um ponto de dados com distância Cook grande indica que o ponto de dados
+influencia fortemente os valores ajustados.
+
+\hypertarget{studentized-residuals-vs-leverage-plot}{%
+\subsubsection{Studentized Residuals vs Leverage
+Plot}\label{studentized-residuals-vs-leverage-plot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ols\_plot\_resid\_lev}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-46-1.pdf}
+
+\hypertarget{conclusuxf5es-8}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-8}}
+
+Gráfico para detecção de outliers e/ou observações com alta influencia
+
+\hypertarget{resuxedduos-studentizados}{%
+\subsubsection{Resíduos Studentizados}\label{resuxedduos-studentizados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ols\_plot\_resid\_stud}\NormalTok{(modelo\_completo)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-47-1.pdf}
+\#\#\#\# Conclusões:
+
+Gráfico para detecção de outliers. Resíduos excluídos estudantis (ou
+resíduos estudantis externamente) são os resíduos excluídos divididos
+por seu desvio padrão estimado. Os resíduos estudantis serão mais
+eficazes para detectar observações Y periféricas do que os resíduos
+padronizados. Se uma observação tiver um resíduo estudantil externamente
+maior que 3 (em valor absoluto), podemos chamá-la de outlier.
+
+\end{document}
