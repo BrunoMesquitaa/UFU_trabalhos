@@ -1,11 +1,11 @@
 ---
-title: "Ultimo Trabalho Regressao"
+title: "Análise de Regressão e Regressão Logística"
 author: "Bruno Mesquita dos Santos"
 date: "2023-11-15"
 output:
-  word_document: default
   html_document:
     df_print: paged
+  word_document: default
   pdf_document: default
 ---
 
