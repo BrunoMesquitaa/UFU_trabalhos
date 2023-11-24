@@ -4,9 +4,9 @@ author: "Bruno Mesquita dos Santos"
 date: "2023-11-15"
 output:
   word_document: default
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -215,7 +215,8 @@ Modelo completo -\> consumo_de_cerveja_litros \~ data+temperatura_media_c+precip
 ### Removendo data
 
 ```{r}
-modelo_sem_data = lm(consumo_de_cerveja_litros ~ temperatura_media_c+precipitacao_mm+final_de_semana)
+modelo_sem_data = lm(consumo_de_cerveja_litros ~ 
+                       temperatura_media_c+precipitacao_mm+final_de_semana)
 anova(modelo_completo,modelo_sem_data)
 ```
 
@@ -316,7 +317,8 @@ anova(modelo_reduzido,modelo_mais_data)
 ### Adicionar precipitacao_mm
 
 ```{r}
-modelo_mais_precipitacao_mm = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana+precipitacao_mm)
+modelo_mais_precipitacao_mm = lm(consumo_de_cerveja_litros ~ 
+                                temperatura_media_c+final_de_semana+precipitacao_mm)
 anova(modelo_reduzido,modelo_mais_precipitacao_mm)
 ```
 
@@ -337,13 +339,15 @@ Fmax(46.716) \> Ftab(3.867347) aceitamos o modelo completo como consumo_de_cerve
 ### Novo Modelo Reduzido
 
 ```{r}
-modelo_reduzido = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana+precipitacao_mm)
+modelo_reduzido = lm(consumo_de_cerveja_litros ~ 
+                       temperatura_media_c+final_de_semana+precipitacao_mm)
 ```
 
 ### Adicionar data
 
 ```{r}
-modelo_mais_data = lm(consumo_de_cerveja_litros ~ temperatura_media_c+final_de_semana+precipitacao_mm+data)
+modelo_mais_data = lm(consumo_de_cerveja_litros ~ 
+                        temperatura_media_c+final_de_semana+precipitacao_mm+data)
 summary(aov(modelo_mais_data))
 anova(modelo_reduzido,modelo_mais_data)
 ```
@@ -412,7 +416,7 @@ plot(temperatura_media_c, residuos)
 
 #### Conclusões:
 
-Tem uma leve diferença entre os valores de 15 a 20 e depois tem uma aumento, pode repesentar uma variância não constante(Vereficar se é significativo com a professora).
+Tem uma leve diferença entre os valores de 15 a 20 e depois tem uma aumento, pode repesentar uma variância não constante, mas é necessario realizar mais testes.
 
 1.  Os resíduos se distribuem aleatoriamente em torno de zero.
 2.  Não se observa nenhum padrão.
@@ -426,7 +430,7 @@ plot(precipitacao_mm , residuos)
 
 Conclusões:
 
-Possui uma concentraçao no zero e tem uma leve diferença entre os valores de 0 a 20, em seguida tem uma diminuição, pode repesentar uma variância não constante (Vereficar se é significativo com a professora).
+Possui uma concentraçao no zero e tem uma leve diferença entre os valores de 0 a 20, em seguida tem uma diminuição, pode repesentar uma variância não constante, mas é necessario realizar mais testes.
 
 1.  Os resíduos se distribuem aleatoriamente em torno de zero.
 2.  Não se observa nenhum padrão.
@@ -476,9 +480,9 @@ $$
 H0: Os \ erros \ têm \ distribuição \ normal \\ 
 H1: Os \ erros \ não \ têm \ distribuição \ normal \\ 
 \end{array}\right.
-$$ 
+$$
 
-##### Conclusões: 
+##### Conclusões:
 
 Como resultado, o teste retornará a estatística W, que terá um valor de significância associada, o valor-p. Para dizer que uma distribuição é normal, o valor p precisa ser maior do que 0,05. Logo rejeitar a hipótese nula concluimos que os erros não tem distribuição normal.
 
@@ -495,9 +499,9 @@ $$
 H0: 𝜌 = 0 \\ 
 H1: 𝜌 \neq 0 \\ 
 \end{array}\right.
-$$ 
+$$
 
-##### Conclusões: 
+##### Conclusões:
 
 Ele faz uma estatística que testa se eles são independentes. Aí, o p-valor que a gente compara é com 0.05, nesse caso, o p-valor não foi menor do que 0.05. Logo, a gente não tem evidência suficiente para rejeitar a hipótese nula. Se eu não consigo rejeitar é porque eu não tenho evidências para dizer que elas não são independentes. Então, eu aceito que são independentes e não há autocorrelação significativa.
 
@@ -585,17 +589,15 @@ summary(modelo)
 
 ## Questão B
 
-Escreva as hipóteses, decisão e conclusão do teste F para o modelo. Use o pvalor da saída do software para o teste. Faça a interpretação do coeficiente de determinação.
+Explicar o significado de cada componente do modelo; 
 
 #### Conclusões:
 
+beta 1 = - 0.19 o log da razão de chances diminui em 0.19 quando seaumenta uma unidade na variável idade e mantém as demais variáveisconstantes. A estimativa negativa de Beta1 indica que aumentando-se avariável idade, diminui-se a chance de sucesso (sinistro)
+Beta2 = -3,62: diminuição no log da razão de chances quando se muda oestado civil de casado para solteiro.
+Beta3 = 3,70: aumento no log da razão de chances quando se muda dosexo masculino para o feminino. A estimativa positiva de Beta3 indica queo sexo codificado como 1, tem maior chance de sucesso (sinistro) quandocomparado com o estado codificado como zero.
+
 O modelo apresenta Pr(\>\|z\|) é menos que o nível significância de 0.05. Logo os parâmetros são significativos. O modelo possui um Intercepto positivo o que siginifica que ele tem uma curva crescente.
-
-```{r}
-PseudoR2(modelo,which="all")
-```
-
-Quanto menores, melhor é o modelo.
 
 O AIC estima a quantidade relativa de informação perdida por um determinado modelo: quanto menos informações um modelo perde, maior a qualidade desse modelo e menor a pontuação AIC.
 
@@ -605,12 +607,12 @@ Teste a significância do modelo por meio do Teste de razão de verossimilhança
 
 ```{r}
 paste0('TRV = ',modelo[["null.deviance"]]-modelo[["deviance"]],' e ', 
-       qchisq(0.95,3), ' há 95% e 3p')
+       qchisq(0.99,3), ' há 95% e 3p')
 ```
 
 #### Conclusões:
 
-Dado que o TRV é maior que qui quadrado há 95% e com 3 parametros o modelo como um todo é significativo.
+Dado que o TRV é maior que qui quadrado há 99% e com 3 parametros o modelo como um todo é significativo, rejeitamos h0.
 
 Lembrando:
 
@@ -652,7 +654,12 @@ OR
 
 #### Conclusões:
 
-A chance de haver sinistro(1) é de cerca de 0.83 vezes menos para cada ano de acrescentado na idade; A chance de haver sinistro(1) é de cerca de 0.027 vezes menos quando estado civil igual a Solteiro(1), ou seja, as chances de a haver sinistro é de 97.3% menor se for Solteiro; A chance de haver sinistro(1) é de cerca de 40.55 vezes maior se o sexo for Feminino(1).
+A chance de haver sinistro(1) é de cerca de 0.83 vezes menos para cada ano de acrescentado na idade, ou seja, as chances de a haver sinistro é de 17% menor a cada ano de acrescentado na idade; A chance de haver sinistro(1) é de cerca de 0.027 vezes menos quando estado civil igual a Solteiro(1), ou seja, as chances de a haver sinistro é de 97.3% menor se for Solteiro; A chance de haver sinistro(1) é de cerca de 40.55 vezes maior se o sexo for Feminino(1).
+
+Odds 1 = 0.83 representa a diminuição na chance de sinistro quando seaumenta uma unidade na idade. A chance de sinistro diminui cerca de17 % (1-0,83) quando se aumenta um ano na idade e mantém as demaisvariáveis constantes.
+Odds2 = 0.027 representa a diminuição na chance de sinistro de umindividuo solteiro, em comparação com um casado. Portanto, o indivíduosolteiro tem cerca de 98% (1-0,027) menos chances de sinistro do que umcasado
+Odds3 = 40,55 representa o aumento na chance de sinistro quando oindivíduo é feminino. Assim, o feminino tem 40 vezes mais chance desinistro do que o masculino
+
 
 ### Intervalos de confiança para as razões de chance
 
@@ -663,12 +670,13 @@ round((cbind(OR, ICOR)),3)
 
 #### Conclusões:
 
-Isso significa que você tem 95% de confiança de que a verdadeiro valor de odds ratio esteja entre os valores acima.
+Isso significa que você tem 95% de confiança de que a verdadeiro valor de odds ratio esteja entre os valores acima. Já que 1 não pertence ao intevalo, logo a chance de sucesso para os dois grupos sob comparação é diferente.
+
+Quando o intervalo de confiança da razão de chances inclui o valor 1, significa que estatisticamente a razão de chances vale 1, ou seja, a chance de sucesso para os dois grupos sob comparação é a mesma.  Se o IC para OR inclui o 1, no caso do sexo, significa que a chance de sucesso para masculino é a mesma que para o feminino. 
 
 ## Questão E
 
-Estime a probabilidade de sinistro associada a um cliente do sexo masculino,
-casado com 25 anos de idade
+Estime a probabilidade de sinistro associada a um cliente do sexo masculino, casado com 25 anos de idade
 
 ```{r}
 
@@ -683,13 +691,12 @@ razaopiest = exp(modelo[["coefficients"]]['(Intercept)'][[1]] +
                  )
 
 paste0('Estimação da probabilidade de sinistro = ',
-       (razaopiest /(1 + razaopiest) * 100))
+       (razaopiest /(1 + razaopiest)))
 ```
 
 ## Questão F
 
-Para o mesmo cliente citado no item anterior, qual a probabilidade de sinistro se
-ele for solteiro? 
+Para o mesmo cliente citado no item anterior, qual a probabilidade de sinistro se ele for solteiro?
 
 ```{r}
 
@@ -704,16 +711,58 @@ razaopiest = exp(modelo[["coefficients"]]['(Intercept)'][[1]] +
                  )
 
 paste0('Estimação da probabilidade de sinistro = ',
-       (razaopiest /(1 + razaopiest) * 100))
+       (razaopiest /(1 + razaopiest)))
 ```
 
 ## Questão G
 
-Compare os resultados obtidos nos dois itens anteriores e reflita sobre as
-estratégias que poderiam ser adotadas pela companhia para atrair novos clientes. 
+Compare os resultados obtidos nos dois itens anteriores e reflita sobre as estratégias que poderiam ser adotadas pela companhia para atrair novos clientes.
 
 #### Conclusões:
 
 Com base na estimação anterioir e para os parametros colocados a prova podemos dizer que para a companhia seria benefico focar em atrai solteiros dados que a chance de haver sinistro diminui muito.
 
+## Questão H
 
+Considere um nível de significância de 1% para excluir variáveis do modelo e comparar o modelo reduzido com o modelo completo, usando o teste de razão de verossimilhança. Decida qual o melhor modelo, com base nesse teste.
+
+```{r}
+
+modelo=glm(Sinistro~Idade+ECivil+Sexo,data = sinistro,
+           family=binomial(link="logit"))
+summary(modelo)
+
+deviance_completo = modelo[["deviance"]]
+
+modelo=glm(Sinistro~Idade,data = sinistro,
+           family=binomial(link="logit"))
+summary(modelo)
+
+deviance_idade = modelo[["deviance"]]
+
+paste0('TRV = ',deviance_idade-deviance_completo,' e ', 
+       qchisq(0.99,2), ' há 99% e 4-2=2p')
+
+```
+
+#### Conclusões:
+
+Dado que o TRV é maior que qui quadrado há 99% e com 2 parametros, temos que o modelo com ECivil+Sexo(completo) como um todo é significativo. Rejeitamos h0.
+
+Lembrando:
+
+
+
+$$
+\left\{ \begin{array}{lc} 
+H0:  Modelo \ só \ com \ 1 \ variável (X1) \ é \ melhor \ que \ o \ modelo \ com \ 3 \\
+\ \ \ \ \ \ \ \ \ variáveis(ou \ seja, \ a \ contribuição \ de \ X2 \ e \ X3 \ não \ é \ significativa) \\ 
+H1:  Modelo \ completo \ é \ melhor \ que \ o \ reduzido \\ 
+\end{array}\right.
+$$
+
+Sob a hipóotese de igualdade entre os dois modelos, TRV tem distribuição aproximada de Qui-Quadrado com graus de liberdade igual ao número de restrições (diferença entre as quantidades de parâmetros).
+
+Quanto mais elevada a diferença entre os dois valores, maioro potencial dos coeficientes para estimar probabilidadesassociadas a ocorrência de determinado evento.
+
+Essa diferença serve para testar a hipótese de que todos oscoeficientes do modelo logístico são iguais a zero, tal como severifica na distribuição F.

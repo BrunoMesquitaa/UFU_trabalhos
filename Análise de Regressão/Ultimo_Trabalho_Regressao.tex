@@ -188,6 +188,27 @@
 ##     rivers
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{\textquotesingle{}DescTools\textquotesingle{}}\NormalTok{))}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"DescTools"}\NormalTok{);}\FunctionTok{library}\NormalTok{(DescTools)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: DescTools
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'DescTools'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:car':
+## 
+##     Recode
+\end{verbatim}
+
 \hypertarget{dados-consumo-cerveja}{%
 \section{Dados Consumo Cerveja}\label{dados-consumo-cerveja}}
 
@@ -713,7 +734,8 @@ data+temperatura\_media\_c+precipitacao\_mm+final\_de\_semana
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                       temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
 \FunctionTok{anova}\NormalTok{(modelo\_completo,modelo\_sem\_data)}
 \end{Highlighting}
 \end{Shaded}
@@ -738,7 +760,8 @@ temperatura\_media\_c}\label{removendo-temperatura_media_c}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data}\SpecialCharTok{++}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                       data}\SpecialCharTok{++}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
 \FunctionTok{anova}\NormalTok{(modelo\_completo,modelo\_sem\_data)}
 \end{Highlighting}
 \end{Shaded}
@@ -762,7 +785,8 @@ precipitacao\_mm}\label{removendo-precipitacao_mm}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data}\SpecialCharTok{+}\NormalTok{temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                       data}\SpecialCharTok{+}\NormalTok{temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
 \FunctionTok{anova}\NormalTok{(modelo\_completo,modelo\_sem\_data)}
 \end{Highlighting}
 \end{Shaded}
@@ -786,7 +810,8 @@ final\_de\_semana}\label{removendo-final_de_semana}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ data}\SpecialCharTok{+}\NormalTok{temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
+\NormalTok{modelo\_sem\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                       data}\SpecialCharTok{+}\NormalTok{temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
 \FunctionTok{anova}\NormalTok{(modelo\_completo,modelo\_sem\_data)}
 \end{Highlighting}
 \end{Shaded}
@@ -881,7 +906,8 @@ precipitacao\_mm}\label{adicionar-precipitacao_mm}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_mais\_precipitacao\_mm }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
+\NormalTok{modelo\_mais\_precipitacao\_mm }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                                   temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
 \FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_precipitacao\_mm)}
 \end{Highlighting}
 \end{Shaded}
@@ -904,7 +930,8 @@ final\_de\_semana}\label{adicionar-final_de_semana}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_mais\_final\_de\_semana }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\NormalTok{modelo\_mais\_final\_de\_semana }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                                   temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
 \FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_final\_de\_semana)}
 \end{Highlighting}
 \end{Shaded}
@@ -952,7 +979,8 @@ temperatura\_media\_c+final\_de\_semana
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_reduzido }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
+\NormalTok{modelo\_reduzido }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                       temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -961,7 +989,8 @@ temperatura\_media\_c+final\_de\_semana
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_mais\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{data)}
+\NormalTok{modelo\_mais\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                        temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{data)}
 \FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(modelo\_mais\_data))}
 \end{Highlighting}
 \end{Shaded}
@@ -1001,7 +1030,8 @@ precipitacao\_mm}\label{adicionar-precipitacao_mm-1}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_mais\_precipitacao\_mm }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
+\NormalTok{modelo\_mais\_precipitacao\_mm }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                                temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
 \FunctionTok{anova}\NormalTok{(modelo\_reduzido,modelo\_mais\_precipitacao\_mm)}
 \end{Highlighting}
 \end{Shaded}
@@ -1050,7 +1080,8 @@ temperatura\_media\_c+final\_de\_semana+precipitacao\_mm
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_reduzido }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
+\NormalTok{modelo\_reduzido }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                       temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1059,7 +1090,8 @@ temperatura\_media\_c+final\_de\_semana+precipitacao\_mm
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modelo\_mais\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}}\NormalTok{ temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{data)}
+\NormalTok{modelo\_mais\_data }\OtherTok{=} \FunctionTok{lm}\NormalTok{(consumo\_de\_cerveja\_litros }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                        temperatura\_media\_c}\SpecialCharTok{+}\NormalTok{final\_de\_semana}\SpecialCharTok{+}\NormalTok{precipitacao\_mm}\SpecialCharTok{+}\NormalTok{data)}
 \FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(modelo\_mais\_data))}
 \end{Highlighting}
 \end{Shaded}
@@ -1224,8 +1256,8 @@ vs.~Temperatura\_media\_c}\label{gruxe1fico-de-dispersuxe3o-dos-resuxedduos-vs.-
 \paragraph{Conclusões:}\label{conclusuxf5es-2}}
 
 Tem uma leve diferença entre os valores de 15 a 20 e depois tem uma
-aumento, pode repesentar uma variância não constante(Vereficar se é
-significativo com a professora).
+aumento, pode repesentar uma variância não constante, mas é necessario
+realizar mais testes.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1255,7 +1287,7 @@ Conclusões:
 
 Possui uma concentraçao no zero e tem uma leve diferença entre os
 valores de 0 a 20, em seguida tem uma diminuição, pode repesentar uma
-variância não constante (Vereficar se é significativo com a professora).
+variância não constante, mas é necessario realizar mais testes.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1358,11 +1390,15 @@ distribuídos.
 H0: Os \ erros \ têm \ distribuição \ normal \\ 
 H1: Os \ erros \ não \ têm \ distribuição \ normal \\ 
 \end{array}\right.
-\] \#\#\#\#\# Conclusões: Como resultado, o teste retornará a
-estatística W, que terá um valor de significância associada, o
-valor-p.~Para dizer que uma distribuição é normal, o valor p precisa ser
-maior do que 0,05. Logo rejeitar a hipótese nula concluimos que os erros
-não tem distribuição normal.
+\]
+
+\hypertarget{conclusuxf5es-5}{%
+\subparagraph{Conclusões:}\label{conclusuxf5es-5}}
+
+Como resultado, o teste retornará a estatística W, que terá um valor de
+significância associada, o valor-p.~Para dizer que uma distribuição é
+normal, o valor p precisa ser maior do que 0,05. Logo rejeitar a
+hipótese nula concluimos que os erros não tem distribuição normal.
 
 \hypertarget{teste-de-autocorrelauxe7uxe3o-dos-resuxedduos-durbin-watson}{%
 \subsubsection{Teste de autocorrelação dos resíduos
@@ -1376,7 +1412,7 @@ não tem distribuição normal.
 
 \begin{verbatim}
 ##  lag Autocorrelation D-W Statistic p-value
-##    1      0.03100611      1.919447   0.378
+##    1      0.03100611      1.919447   0.366
 ##  Alternative hypothesis: rho != 0
 \end{verbatim}
 
@@ -1388,13 +1424,17 @@ não tem distribuição normal.
 H0: 𝜌 = 0 \\ 
 H1: 𝜌 \neq 0 \\ 
 \end{array}\right.
-\] \#\#\#\#\# Conclusões: Ele faz uma estatística que testa se eles são
-independentes. Aí, o p-valor que a gente compara é com 0.05, nesse caso,
-o p-valor não foi menor do que 0.05. Logo, a gente não tem evidência
-suficiente para rejeitar a hipótese nula. Se eu não consigo rejeitar é
-porque eu não tenho evidências para dizer que elas não são
-independentes. Então, eu aceito que são independentes e não há
-autocorrelação significativa.
+\]
+
+\hypertarget{conclusuxf5es-6}{%
+\subparagraph{Conclusões:}\label{conclusuxf5es-6}}
+
+Ele faz uma estatística que testa se eles são independentes. Aí, o
+p-valor que a gente compara é com 0.05, nesse caso, o p-valor não foi
+menor do que 0.05. Logo, a gente não tem evidência suficiente para
+rejeitar a hipótese nula. Se eu não consigo rejeitar é porque eu não
+tenho evidências para dizer que elas não são independentes. Então, eu
+aceito que são independentes e não há autocorrelação significativa.
 
 \hypertarget{conclusuxf5es-geral}{%
 \subsubsection{Conclusões Geral:}\label{conclusuxf5es-geral}}
@@ -1405,6 +1445,14 @@ aprovação no teste de Shapiro-Wilk. No entanto, em relação à aplicação
 de mínimos quadrados ponderados, a evidência de falta de
 homocedasticidade nos resíduos não é conclusiva, necessitando de mais
 testes.
+
+\hypertarget{questuxe3o-g}{%
+\subsection{Questão G}\label{questuxe3o-g}}
+
+Realize a análise de diagnóstico do modelo, apresentando os gráficos de
+todas as medidas estudadas (DFFITS, DFBETAS, Distância de Cook,
+leverage, resíduos estudentizados). Interprete cada uma usando o gráfico
+e CALCULE o ponto de corte visto no livro para comparar.
 
 \hypertarget{dffit}{%
 \subsubsection{DFFIT}\label{dffit}}
@@ -1417,8 +1465,8 @@ testes.
 
 \includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-43-1.pdf}
 
-\hypertarget{conclusuxf5es-5}{%
-\paragraph{Conclusões:}\label{conclusuxf5es-5}}
+\hypertarget{conclusuxf5es-7}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-7}}
 
 DFFIT - diferença nos ajustes, é usado para identificar pontos de dados
 influentes. Ele quantifica o número de desvios padrão que o valor
@@ -1438,8 +1486,8 @@ Pontos ultrapassao a linha podem ser considerados pontos influentes.
 \includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-44-1.pdf}
 \includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-44-2.pdf}
 
-\hypertarget{conclusuxf5es-6}{%
-\paragraph{Conclusões:}\label{conclusuxf5es-6}}
+\hypertarget{conclusuxf5es-8}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-8}}
 
 O gráfico sugere que vários pontos têm uma influência considerável na
 estimativa da inclinação para x. Neste caso, a inspeção visual da
@@ -1461,8 +1509,8 @@ estatística DFBETA que exceda esse valor.
 
 \includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-45-1.pdf}
 
-\hypertarget{conclusuxf5es-7}{%
-\paragraph{Conclusões:}\label{conclusuxf5es-7}}
+\hypertarget{conclusuxf5es-9}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-9}}
 
 Gráfico de barras da distância de Cook para detectar observações que
 influenciam fortemente os valores ajustados do modelo. A distância de
@@ -1498,8 +1546,8 @@ Plot}\label{studentized-residuals-vs-leverage-plot}}
 
 \includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-46-1.pdf}
 
-\hypertarget{conclusuxf5es-8}{%
-\paragraph{Conclusões:}\label{conclusuxf5es-8}}
+\hypertarget{conclusuxf5es-10}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-10}}
 
 Gráfico para detecção de outliers e/ou observações com alta influencia
 
@@ -1513,7 +1561,9 @@ Gráfico para detecção de outliers e/ou observações com alta influencia
 \end{Shaded}
 
 \includegraphics{Ultimo_Trabalho_Regressao_files/figure-latex/unnamed-chunk-47-1.pdf}
-\#\#\#\# Conclusões:
+
+\hypertarget{conclusuxf5es-11}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-11}}
 
 Gráfico para detecção de outliers. Resíduos excluídos estudantis (ou
 resíduos estudantis externamente) são os resíduos excluídos divididos
@@ -1521,5 +1571,420 @@ por seu desvio padrão estimado. Os resíduos estudantis serão mais
 eficazes para detectar observações Y periféricas do que os resíduos
 padronizados. Se uma observação tiver um resíduo estudantil externamente
 maior que 3 (em valor absoluto), podemos chamá-la de outlier.
+
+\hypertarget{regressuxe3o-loguxedstica}{%
+\section{Regressão Logística}\label{regressuxe3o-loguxedstica}}
+
+\hypertarget{questuxe3o-a-1}{%
+\subsection{Questão A}\label{questuxe3o-a-1}}
+
+Escreva a equação do modelo ajustado, capaz de descrever o
+relacionamento existente entre a ocorrência de sinistro e as variáveis
+em estudo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sinistro }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(}\StringTok{"dados/dadosSinistro.txt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo}\OtherTok{=}\FunctionTok{glm}\NormalTok{(Sinistro}\SpecialCharTok{\textasciitilde{}}\NormalTok{Idade}\SpecialCharTok{+}\NormalTok{ECivil}\SpecialCharTok{+}\NormalTok{Sexo,}\AttributeTok{data =}\NormalTok{ sinistro,}
+           \AttributeTok{family=}\FunctionTok{binomial}\NormalTok{(}\AttributeTok{link=}\StringTok{"logit"}\NormalTok{))}
+\FunctionTok{summary}\NormalTok{(modelo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = Sinistro ~ Idade + ECivil + Sexo, family = binomial(link = "logit"), 
+##     data = sinistro)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.3375  -0.3070  -0.1441   0.2496   2.0702  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)   
+## (Intercept)  3.78103    1.94470   1.944  0.05186 . 
+## Idade       -0.18957    0.07228  -2.623  0.00872 **
+## ECivil      -3.62511    1.65160  -2.195  0.02817 * 
+## Sexo         3.70268    1.67313   2.213  0.02690 * 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 42.541  on 35  degrees of freedom
+## Residual deviance: 20.990  on 32  degrees of freedom
+## AIC: 28.99
+## 
+## Number of Fisher Scoring iterations: 6
+\end{verbatim}
+
+\hypertarget{questuxe3o-b-1}{%
+\subsection{Questão B}\label{questuxe3o-b-1}}
+
+Explicar o significado de cada componente do modelo;
+
+\hypertarget{conclusuxf5es-12}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-12}}
+
+beta 1 = - 0.19 o log da razão de chances diminui em 0.19 quando
+seaumenta uma unidade na variável idade e mantém as demais
+variáveisconstantes. A estimativa negativa de Beta1 indica que
+aumentando-se avariável idade, diminui-se a chance de sucesso (sinistro)
+Beta2 = -3,62: diminuição no log da razão de chances quando se muda
+oestado civil de casado para solteiro. Beta3 = 3,70: aumento no log da
+razão de chances quando se muda dosexo masculino para o feminino. A
+estimativa positiva de Beta3 indica queo sexo codificado como 1, tem
+maior chance de sucesso (sinistro) quandocomparado com o estado
+codificado como zero.
+
+O modelo apresenta Pr(\textgreater\textbar z\textbar) é menos que o
+nível significância de 0.05. Logo os parâmetros são significativos. O
+modelo possui um Intercepto positivo o que siginifica que ele tem uma
+curva crescente.
+
+O AIC estima a quantidade relativa de informação perdida por um
+determinado modelo: quanto menos informações um modelo perde, maior a
+qualidade desse modelo e menor a pontuação AIC.
+
+\hypertarget{questuxe3o-c-1}{%
+\subsection{Questão C}\label{questuxe3o-c-1}}
+
+Teste a significância do modelo por meio do Teste de razão de
+verossimilhança, apresentando as hipóteses e conclusão. Teste a
+significância dos parâmetros do modelo e apresente as conclusões, em
+termos das variáveis. Use 1\% de significância.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}TRV = \textquotesingle{}}\NormalTok{,modelo[[}\StringTok{"null.deviance"}\NormalTok{]]}\SpecialCharTok{{-}}\NormalTok{modelo[[}\StringTok{"deviance"}\NormalTok{]],}\StringTok{\textquotesingle{} e \textquotesingle{}}\NormalTok{, }
+       \FunctionTok{qchisq}\NormalTok{(}\FloatTok{0.99}\NormalTok{,}\DecValTok{3}\NormalTok{), }\StringTok{\textquotesingle{} há 95\% e 3p\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "TRV = 21.5506493356017 e 11.3448667301444 há 95% e 3p"
+\end{verbatim}
+
+\hypertarget{conclusuxf5es-13}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-13}}
+
+Dado que o TRV é maior que qui quadrado há 99\% e com 3 parametros o
+modelo como um todo é significativo, rejeitamos h0.
+
+Lembrando:
+
+Considere dois modelos um ``completo'' (Mc ) e o outro ``restrito'' (Mr)
+quanto à quantidade de parâmetros.Então a estatística de teste é:
+
+TRV = 2 {[}log(L(Mc )) − log(L(Mr)){]}.
+
+\[
+\left\{ \begin{array}{rc} 
+H0: Igualdade \ entre \ os \ dois \ modelos \\ 
+H1: Difernça \ entre \ os \ dois \ modelos \\ 
+\end{array}\right.
+\]
+
+Sob a hipóotese de igualdade entre os dois modelos, TRV tem distribuição
+aproximada de Qui-Quadrado com graus de liberdade igual ao número de
+restrições (diferença entre as quantidades de parâmetros).
+
+\hypertarget{questuxe3o-d-1}{%
+\subsection{Questão D}\label{questuxe3o-d-1}}
+
+Interprete as razões de chance e os intervalos de confiança obtidas para
+todos os parâmetros;
+
+\hypertarget{intervalos-de-confianuxe7a}{%
+\subsubsection{Intervalos de
+confiança}\label{intervalos-de-confianuxe7a}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ICbeta}\OtherTok{=}\FunctionTok{confint.default}\NormalTok{(modelo,}\AttributeTok{level=}\FloatTok{0.95}\NormalTok{)}
+\NormalTok{ICbeta}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   2.5 %      97.5 %
+## (Intercept) -0.03051846  7.59258396
+## Idade       -0.33123689 -0.04790661
+## ECivil      -6.86218543 -0.38803500
+## Sexo         0.42339383  6.98195617
+\end{verbatim}
+
+\hypertarget{conclusuxf5es-14}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-14}}
+
+Isso significa que você tem 95\% de confiança de que a verdadeiro valor
+de beta/intercepto esteja entre os valores acima. O valor zero pertence
+ao intervalo, logo os parâmetros de beta sao estatisticamente igual a
+zero.
+
+\hypertarget{odds-ratio-or-chance}{%
+\subsubsection{odds ratio -- OR (chance)}\label{odds-ratio-or-chance}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{OR}\OtherTok{=}\FunctionTok{exp}\NormalTok{(modelo}\SpecialCharTok{$}\NormalTok{coefficients)}
+\NormalTok{OR}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)       Idade      ECivil        Sexo 
+## 43.86131610  0.82731335  0.02664616 40.55564586
+\end{verbatim}
+
+\hypertarget{conclusuxf5es-15}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-15}}
+
+A chance de haver sinistro(1) é de cerca de 0.83 vezes menos para cada
+ano de acrescentado na idade, ou seja, as chances de a haver sinistro é
+de 17\% menor a cada ano de acrescentado na idade; A chance de haver
+sinistro(1) é de cerca de 0.027 vezes menos quando estado civil igual a
+Solteiro(1), ou seja, as chances de a haver sinistro é de 97.3\% menor
+se for Solteiro; A chance de haver sinistro(1) é de cerca de 40.55 vezes
+maior se o sexo for Feminino(1).
+
+Odds 1 = 0.83 representa a diminuição na chance de sinistro quando
+seaumenta uma unidade na idade. A chance de sinistro diminui cerca de17
+\% (1-0,83) quando se aumenta um ano na idade e mantém as
+demaisvariáveis constantes. Odds2 = 0.027 representa a diminuição na
+chance de sinistro de umindividuo solteiro, em comparação com um casado.
+Portanto, o indivíduosolteiro tem cerca de 98\% (1-0,027) menos chances
+de sinistro do que umcasado Odds3 = 40,55 representa o aumento na chance
+de sinistro quando oindivíduo é feminino. Assim, o feminino tem 40 vezes
+mais chance desinistro do que o masculino
+
+\hypertarget{intervalos-de-confianuxe7a-para-as-razuxf5es-de-chance}{%
+\subsubsection{Intervalos de confiança para as razões de
+chance}\label{intervalos-de-confianuxe7a-para-as-razuxf5es-de-chance}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ICOR}\OtherTok{=}\FunctionTok{exp}\NormalTok{(ICbeta);}
+\FunctionTok{round}\NormalTok{((}\FunctionTok{cbind}\NormalTok{(OR, ICOR)),}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 OR 2.5 %   97.5 %
+## (Intercept) 43.861 0.970 1983.432
+## Idade        0.827 0.718    0.953
+## ECivil       0.027 0.001    0.678
+## Sexo        40.556 1.527 1077.023
+\end{verbatim}
+
+\hypertarget{conclusuxf5es-16}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-16}}
+
+Isso significa que você tem 95\% de confiança de que a verdadeiro valor
+de odds ratio esteja entre os valores acima. Já que 1 não pertence ao
+intevalo, logo a chance de sucesso para os dois grupos sob comparação é
+diferente.
+
+Quando o intervalo de confiança da razão de chances inclui o valor 1,
+significa que estatisticamente a razão de chances vale 1, ou seja, a
+chance de sucesso para os dois grupos sob comparação é a mesma. Se o IC
+para OR inclui o 1, no caso do sexo, significa que a chance de sucesso
+para masculino é a mesma que para o feminino.
+
+\hypertarget{questuxe3o-e-1}{%
+\subsection{Questão E}\label{questuxe3o-e-1}}
+
+Estime a probabilidade de sinistro associada a um cliente do sexo
+masculino, casado com 25 anos de idade
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p\_sexo }\OtherTok{=} \DecValTok{0}
+\NormalTok{p\_ec }\OtherTok{=} \DecValTok{0}
+\NormalTok{p\_idade }\OtherTok{=} \DecValTok{25}
+
+\NormalTok{razaopiest }\OtherTok{=} \FunctionTok{exp}\NormalTok{(modelo[[}\StringTok{"coefficients"}\NormalTok{]][}\StringTok{\textquotesingle{}(Intercept)\textquotesingle{}}\NormalTok{][[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{+} 
+\NormalTok{                 (modelo[[}\StringTok{"coefficients"}\NormalTok{]][}\StringTok{\textquotesingle{}Idade\textquotesingle{}}\NormalTok{][[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{*}\NormalTok{ p\_idade) }\SpecialCharTok{+}
+\NormalTok{                 (modelo[[}\StringTok{"coefficients"}\NormalTok{]][}\StringTok{\textquotesingle{}ECivil\textquotesingle{}}\NormalTok{][[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{*}\NormalTok{ p\_ec) }\SpecialCharTok{+}
+\NormalTok{                 (modelo[[}\StringTok{"coefficients"}\NormalTok{]][}\StringTok{\textquotesingle{}Sexo\textquotesingle{}}\NormalTok{][[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{*}\NormalTok{ p\_sexo)}
+\NormalTok{                 )}
+
+\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Estimação da probabilidade de sinistro = \textquotesingle{}}\NormalTok{,}
+\NormalTok{       (razaopiest }\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ razaopiest)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estimação da probabilidade de sinistro = 0.277226495853509"
+\end{verbatim}
+
+\hypertarget{questuxe3o-f-1}{%
+\subsection{Questão F}\label{questuxe3o-f-1}}
+
+Para o mesmo cliente citado no item anterior, qual a probabilidade de
+sinistro se ele for solteiro?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p\_sexo }\OtherTok{=} \DecValTok{0}
+\NormalTok{p\_ec }\OtherTok{=} \DecValTok{1}
+\NormalTok{p\_idade }\OtherTok{=} \DecValTok{25}
+
+\NormalTok{razaopiest }\OtherTok{=} \FunctionTok{exp}\NormalTok{(modelo[[}\StringTok{"coefficients"}\NormalTok{]][}\StringTok{\textquotesingle{}(Intercept)\textquotesingle{}}\NormalTok{][[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{+} 
+\NormalTok{                 (modelo[[}\StringTok{"coefficients"}\NormalTok{]][}\StringTok{\textquotesingle{}Idade\textquotesingle{}}\NormalTok{][[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{*}\NormalTok{ p\_idade) }\SpecialCharTok{+}
+\NormalTok{                 (modelo[[}\StringTok{"coefficients"}\NormalTok{]][}\StringTok{\textquotesingle{}ECivil\textquotesingle{}}\NormalTok{][[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{*}\NormalTok{ p\_ec) }\SpecialCharTok{+}
+\NormalTok{                 (modelo[[}\StringTok{"coefficients"}\NormalTok{]][}\StringTok{\textquotesingle{}Sexo\textquotesingle{}}\NormalTok{][[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{*}\NormalTok{ p\_sexo)}
+\NormalTok{                 )}
+
+\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Estimação da probabilidade de sinistro = \textquotesingle{}}\NormalTok{,}
+\NormalTok{       (razaopiest }\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ razaopiest)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estimação da probabilidade de sinistro = 0.010116983059195"
+\end{verbatim}
+
+\hypertarget{questuxe3o-g-1}{%
+\subsection{Questão G}\label{questuxe3o-g-1}}
+
+Compare os resultados obtidos nos dois itens anteriores e reflita sobre
+as estratégias que poderiam ser adotadas pela companhia para atrair
+novos clientes.
+
+\hypertarget{conclusuxf5es-17}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-17}}
+
+Com base na estimação anterioir e para os parametros colocados a prova
+podemos dizer que para a companhia seria benefico focar em atrai
+solteiros dados que a chance de haver sinistro diminui muito.
+
+\hypertarget{questuxe3o-h}{%
+\subsection{Questão H}\label{questuxe3o-h}}
+
+Considere um nível de significância de 1\% para excluir variáveis do
+modelo e comparar o modelo reduzido com o modelo completo, usando o
+teste de razão de verossimilhança. Decida qual o melhor modelo, com base
+nesse teste.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo}\OtherTok{=}\FunctionTok{glm}\NormalTok{(Sinistro}\SpecialCharTok{\textasciitilde{}}\NormalTok{Idade}\SpecialCharTok{+}\NormalTok{ECivil}\SpecialCharTok{+}\NormalTok{Sexo,}\AttributeTok{data =}\NormalTok{ sinistro,}
+           \AttributeTok{family=}\FunctionTok{binomial}\NormalTok{(}\AttributeTok{link=}\StringTok{"logit"}\NormalTok{))}
+\FunctionTok{summary}\NormalTok{(modelo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = Sinistro ~ Idade + ECivil + Sexo, family = binomial(link = "logit"), 
+##     data = sinistro)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.3375  -0.3070  -0.1441   0.2496   2.0702  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)   
+## (Intercept)  3.78103    1.94470   1.944  0.05186 . 
+## Idade       -0.18957    0.07228  -2.623  0.00872 **
+## ECivil      -3.62511    1.65160  -2.195  0.02817 * 
+## Sexo         3.70268    1.67313   2.213  0.02690 * 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 42.541  on 35  degrees of freedom
+## Residual deviance: 20.990  on 32  degrees of freedom
+## AIC: 28.99
+## 
+## Number of Fisher Scoring iterations: 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{deviance\_completo }\OtherTok{=}\NormalTok{ modelo[[}\StringTok{"deviance"}\NormalTok{]]}
+
+\NormalTok{modelo}\OtherTok{=}\FunctionTok{glm}\NormalTok{(Sinistro}\SpecialCharTok{\textasciitilde{}}\NormalTok{Idade,}\AttributeTok{data =}\NormalTok{ sinistro,}
+           \AttributeTok{family=}\FunctionTok{binomial}\NormalTok{(}\AttributeTok{link=}\StringTok{"logit"}\NormalTok{))}
+\FunctionTok{summary}\NormalTok{(modelo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = Sinistro ~ Idade, family = binomial(link = "logit"), 
+##     data = sinistro)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.2066  -0.9398  -0.4521   1.2628   1.6573  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)  
+## (Intercept)  1.54670    1.26218   1.225   0.2204  
+## Idade       -0.08212    0.04364  -1.882   0.0599 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 42.541  on 35  degrees of freedom
+## Residual deviance: 37.033  on 34  degrees of freedom
+## AIC: 41.033
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{deviance\_idade }\OtherTok{=}\NormalTok{ modelo[[}\StringTok{"deviance"}\NormalTok{]]}
+
+\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}TRV = \textquotesingle{}}\NormalTok{,deviance\_idade}\SpecialCharTok{{-}}\NormalTok{deviance\_completo,}\StringTok{\textquotesingle{} e \textquotesingle{}}\NormalTok{, }
+       \FunctionTok{qchisq}\NormalTok{(}\FloatTok{0.99}\NormalTok{,}\DecValTok{2}\NormalTok{), }\StringTok{\textquotesingle{} há 99\% e 4{-}2=2p\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "TRV = 16.0425922111344 e 9.21034037197618 há 99% e 4-2=2p"
+\end{verbatim}
+
+\hypertarget{conclusuxf5es-18}{%
+\paragraph{Conclusões:}\label{conclusuxf5es-18}}
+
+Dado que o TRV é maior que qui quadrado há 99\% e com 2 parametros,
+temos que o modelo com ECivil+Sexo(completo) como um todo é
+significativo. Rejeitamos h0.
+
+Lembrando:
+
+\[
+\left\{ \begin{array}{lc} 
+H0:  Modelo \ só \ com \ 1 \ variável (X1) \ é \ melhor \ que \ o \ modelo \ com \ 3 \\
+\ \ \ \ \ \ \ \ \ variáveis(ou \ seja, \ a \ contribuição \ de \ X2 \ e \ X3 \ não \ é \ significativa) \\ 
+H1:  Modelo \ completo \ é \ melhor \ que \ o \ reduzido \\ 
+\end{array}\right.
+\]
+
+Sob a hipóotese de igualdade entre os dois modelos, TRV tem distribuição
+aproximada de Qui-Quadrado com graus de liberdade igual ao número de
+restrições (diferença entre as quantidades de parâmetros).
+
+Quanto mais elevada a diferença entre os dois valores, maioro potencial
+dos coeficientes para estimar probabilidadesassociadas a ocorrência de
+determinado evento.
+
+Essa diferença serve para testar a hipótese de que todos oscoeficientes
+do modelo logístico são iguais a zero, tal como severifica na
+distribuição F.
 
 \end{document}
