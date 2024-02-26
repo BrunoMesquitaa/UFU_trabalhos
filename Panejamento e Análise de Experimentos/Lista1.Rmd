@@ -1,0 +1,439 @@
+---
+title: "Lista 1 - Planejamento e Análise de Experimentos"
+author: "Bruno Mesquita dos Santo"
+date: "2024-02-26"
+output:
+  pdf_document: default
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+if (!require('SuppDists'))install.packages("SuppDists");library(SuppDists)
+if (!require('agricolae'))install.packages("agricolae");library(agricolae)
+if (!require('DescTools'))install.packages("DescTools");library(DescTools)
+```
+
+#### 3) O conjunto de dados seguintes é proveniente de um experimento conduzido para caracterização de quatro variedades de pêra (A, B, C e D) com relação ao peso por fruto, medido em gramas. Foi colhida uma amostra aleatória de cinco frutos para cada variedade. Os valores obtidos foram:
+
+> Repetições = 5 Tratamentos = 4
+
+```{r}
+tratA <- c(78, 88, 72, 74, 98)
+tratB <- c(79, 56, 71, 96, 55)
+tratC <- c(63, 68, 58, 79, 59)
+tratD <- c(60, 65, 59, 54, 58)
+X <-c(tratA,tratB, tratC, tratD)
+Y <- rep(c("A", "B", "C","D"), each = 5)
+dados <- data.frame(Resp=X,Trat=Y)
+dados
+```
+
+##### a) Testar a homogeneidade de variâncias utilizando o Teste de Hartley.
+
+```{r}
+var(tratA) 
+```
+
+```{r}
+var(tratB)
+```
+
+```{r}
+var(tratC) 
+```
+
+```{r}
+var(tratD) 
+```
+
+Hcal = S²max/S²min
+
+```{r}
+Hcal <- 292.3/15.7
+Hcal
+```
+
+Htab há 4 tratamento e (5-1)repetições por tratamento, a 5% de
+significância
+
+```{r}
+qmaxFratio(0.95,4,4)
+```
+
+Como Hc\<Htab, rejeita-se a hipotese de heterogeneidade de variância dos
+grupos
+
+------------------------------------------------------------------------
+
+##### b) Se o teste na letra a) não for significativo então obtenha a tabela de analise
+
+de variância, aplique o teste F e comente o resultado.
+
+```{r}
+modelo <- aov(Resp~Trat, data = dados)
+anova(modelo) 
+```
+
+Hipótese:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: \beta1 = \beta2 = \beta3 = \beta4 = 0 \\ 
+H1: pelo \ menos \ um \ \beta \ difere \ de \ zero \\ 
+\end{array}\right.
+$$
+
+Dado que nosso modelo possuí p-value: \< 0.03188, podemos concluir que
+há 5% nível de significância ele rejeita H0, logo o modelo é
+significativo.
+
+------------------------------------------------------------------------
+
+##### c) Aplique os testes: Teste t de Student, Teste de Tukey, Teste de Duncan, Teste de S-N-K, Teste de Dunnett (considerando o tratamento controle sendo A) e o Teste de Scheffé.
+
+Teste t de Student:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: Y = 0 \\ 
+H1: Y \neq 0
+\end{array}\right.
+$$
+
+```{r}
+t.test(tratA,tratB)
+```
+
+Aceita h0, logo a diferença das médias não é estatisticamente
+significativa.
+
+```{r}
+t.test(tratA,tratC)
+```
+
+Rejeita h0, logo a diferença das médias é estatisticamente
+significativa.
+
+```{r}
+t.test(tratA,tratD)
+```
+
+Rejeita h0, logo a diferença das médias é estatisticamente
+significativa.
+
+```{r}
+t.test(tratB,tratC)
+```
+
+Aceita h0, logo a diferença das médias não é estatisticamente
+significativa.
+
+```{r}
+t.test(tratB,tratD)
+```
+
+Aceita h0, logo a diferença das médias não é estatisticamente
+significativa.
+
+```{r}
+t.test(tratC,tratD)
+```
+
+Aceita h0, logo a diferença das médias não é estatisticamente
+significativa.
+
+Utilizaremos o TratA por ter a maior média.
+
+------------------------------------------------------------------------
+
+Teste de Tukey:
+
+```{r}
+TukeyHSD(modelo)
+```
+
+```{r}
+plot(TukeyHSD(modelo))
+```
+
+Somente D e A são diferentes entre si, como trat A tem maior média, ele
+será usado
+
+------------------------------------------------------------------------
+
+Teste de Duncan:
+
+```{r}
+resultado_duncan <- duncan.test(modelo, "Trat")
+print(resultado_duncan)
+```
+
+Diferença apenas entre o TratA - TratC e TratA - TratD.
+
+------------------------------------------------------------------------
+
+SNK
+
+W1 = q(s/sqrt(r))
+
+q = o valor na tabela de Tukey (nº de médias abrangidas pelo contraste,
+nº de g.l.Resíduo) s = sqrt(qmerro) r = numero de repetições
+
+```{r}
+q <- qtukey(0.95, 4, 16) 
+s <- sqrt(124.83)
+r <- 5
+print(q*(s/sqrt(r)))
+```
+
+```{r}
+mean(tratA)-mean(tratD)
+```
+
+```{r}
+mean(tratA)-mean(tratC)
+```
+
+Como Yestimado\>(contraste de duas médias) então rejeita-se H0. logo MA
+!= MD, mas H0 é aceito entre MA, MB e MC
+
+------------------------------------------------------------------------
+
+DUNNET
+
+```{r}
+DunnettTest(list(tratA, tratB, tratC, tratD))
+```
+
+A média do tratD é significativamente diferente da média tratA, mas as
+médias do TratB e C não diferem significativamente.
+
+#### 4) Para avaliar a condição de fertilidade do solo de uma propriedade rural foram coletadas quatro amostras de cada um dos cinco tipos de solos. Os valores obtidos para o teor de carbono orgânico, em g.kg-1, em cada solo, foram:
+
+```{r}
+A <- c(22, 25, 23, 26)
+B <- c( 24, 27, 25, 29)
+C <- c( 20, 22, 23, 21)
+D <- c( 26, 28, 30, 29)
+E <- c(26, 23, 21, 23)
+
+X<- c(A,B,C,D,E)
+Y <- rep(c("A", "B", "C", "D", "E"), each = 4)
+dados <- data.frame(Resp=X,Trat=Y)
+dados
+```
+
+```{r}
+shapiro.test(dados$Resp) 
+```
+
+pvalor maior que 0.05, dados estão normais(H0)
+
+```{r}
+bartlett.test(Resp~Trat, data=dados)
+```
+
+pvalor maior que 0.05, dados tem homogeneidade(H0)
+
+```{r}
+modelo <- aov(Resp~Trat, data = dados)
+anova(modelo) 
+```
+
+> Fcalc\<- 27.8250/3.4167 #8.143823 qf(0.95,4,15) #3.055568 Como
+> Fcal\>Ftab, rejeita-se H0, logo, pelo menos, um tratamento difere dos
+> outros
+
+#### 5) Um experimento foi conduzido para avaliar diferentes métodos de conservação das espiguetas de mini milho com a finalidade de proporcionar um produto com qualidade. Foi utilizado o delineamento inteiramente casualizado, com quatro repetições, sendo as parcelas constituídas por três embalagens, contendo cada uma, 15 espiguetas. A variável medida foi o teor de vitamina C. Os tratamentos e os valores de vitamina C, em mg/100g, obtidos foram:
+
+```{r}
+AD <- c(7, 9, 10, 9)
+AA <- c(18, 20, 17, 17)
+LC <- c(15, 14, 15, 13)
+AAR <- c(9, 7, 10, 8)
+LCR <- c(9, 8, 10, 10)
+```
+
+##### a) Elabore um conjunto de contrastes ortogonais úteis para o pesquisador:
+
+Y = 4m1 - m2 - m3 - m4 - m5 h0 = y = 0 \<=\> m1 = (m2 + m3 + m4 + m5)/4
+
+Y2 = m1 - m2 h0 = y2 = 0 \<=\> m1 = m2
+
+##### b) Explique o significado de cada contraste:
+
+O contraste Y verifica ser a media do tratamento 1 é igual a média dos
+tratamentos restantes. Já o Y2 verifica a igualdade da média de dois
+tratamentos.
+
+##### c) Elabore a análise da variância, com interpretação dos resultados:
+
+```{r}
+X<- c(AD,AA,LC,AAR,LCR)
+Y <- rep(c("A", "B", "C", "D", "E"), each = 4)
+dados <- data.frame(Resp=X,Trat=Y)
+dados
+```
+
+```{r}
+shapiro.test(dados$Resp) 
+```
+
+pvalor menor que 0.05, dados não estão normais(H0)
+
+```{r}
+bartlett.test(Resp~Trat, data=dados)
+```
+
+pvalor maior que 0.05, dados tem homogeneidade(H0)
+
+```{r}
+modelo <- aov(Resp~Trat, data = dados)
+anova(modelo) 
+```
+
+Hipótese:
+
+$$
+\left\{ \begin{array}{rc} 
+H0: \beta1 = \beta2 = \beta3 = \beta4 = 0 \\ 
+H1: pelo \ menos \ um \ \beta \ difere \ de \ zero \\ 
+\end{array}\right.
+$$
+
+Dado que nosso modelo possuí p-value: 1.648e-08 \< 0.05, podemos
+concluir que há 5% nível de significância ele rejeita H0, logo o modelo
+é significativo.
+
+##### d) Aplique o teste de Tukey (5%) e o teste SNK (5%). Comente os resultados.
+
+Tukey:
+
+```{r}
+TukeyHSD(modelo)
+```
+
+B-A, C-A, C-B, D-B, E-B, D-C, E-C são diferentes entre si/
+
+SNK
+
+W1 = q(s/sqrt(r))
+
+q = o valor na tabela de Tukey (nº de médias abrangidas pelo contraste,
+nº de g.l.Resíduo) s = sqrt(qmerro) r = numero de repetições
+
+```{r}
+q <- qtukey(0.95, 5, 15) 
+s <- sqrt(1.417)
+r <- 4
+print(q*(s/sqrt(r)))
+```
+
+```{r}
+mean(AD)
+```
+
+```{r}
+mean(AA)
+```
+
+```{r}
+mean(LC)
+```
+
+```{r}
+mean(AAR)
+```
+
+```{r}
+mean(LCR)
+```
+
+```{r}
+mean(LCR)-mean(AAR)
+```
+
+```{r}
+mean(LCR)-mean(AD)
+```
+
+```{r}
+mean(AD)-mean(AAR)
+```
+
+mean(AD) Como Yestimado\>(contraste de duas médias) então rejeita-se H0.
+logo LC != AA, mas H0 é aceito entre LCR, AD e AAR
+
+#### 6) Um experimento foi conduzido no delineamento inteiramente casualizado, com quatro repetições, para o desenvolvimento de peixe tipo lambari quando tratados por diferentes rações. Os tratamentos e valores de comprimento dos peixes, em cm, foram:
+
+```{r}
+RC <- c( 4.6, 5.1, 5.8, 5.5)
+RCE <- c( 6.0, 7.1, 7.2, 6.8)
+RCEV <- c( 5.8, 7.2, 6.9, 6.7)
+RCF <- c(5.6, 4.9, 5.9, 5.7)
+RCFV <- c(1.0, 5.5, 5.1, 5.9)
+
+X <-c(RC, RCE, RCEV, RCF, RCFV)
+Y <- rep(c("A", "B", "C","D", "E"), each = 4)
+dados <- data.frame(Resp=X,Trat=Y)
+dados
+```
+
+```{r}
+modelo <- aov(Resp~Trat, data = dados)
+anova(modelo) 
+```
+
+Dado que nosso modelo possuí p-value: \< 0.04285, podemos concluir que há 5% nível de significância ele rejeita H0, logo o modelo é significativo.
+
+#### 7) Um experimento foi conduzido no delineamento inteiramente casualizado, com cinco repetições, para avaliar o efeito de cinco medicamentos na diminuição da pressão arterial de animais experimentais. Para isso, o pesquisador escolheu ao acaso 30 animais do mesmo tipo e dividiu ao acaso em seis grupos, sendo que em cada grupo os animais receberam o mesmo medicamento. Exceto pelos medicamentos (identificados por A, B, C, D, E e T), todos os animais tiveram o mesmo cuidado e mesma alimentação, sendo criados na mesma área experimental. Após o período de avaliação, os animais sorteados na área experimental bem como os tratamentos e os valores da pressão arterial foram:
+
+```{r}
+a <- c(21,23,26,21,22)
+b <- c(8,10,6,0,9)
+c <- c(11,10,14,14,12)
+d <- c(29,25,31,33,30)
+e <- c(12,13,15,11,15)
+t <- c(2,4,0,2,2)
+
+X <-c(a, b, c, d, e, t)
+Y <- rep(c("A", "B", "C","D", "E", "T"), each = 5)
+dados <- data.frame(Resp=X,Trat=Y)
+dados
+```
+
+
+```{r}
+shapiro.test(dados$Resp) 
+```
+
+pvalor maior que 0.05, dados estão normais(H0)
+
+```{r}
+bartlett.test(Resp~Trat, data=dados)
+```
+
+pvalor maior que 0.05, dados tem homogeneidade(H0)
+
+```{r}
+modelo <- aov(Resp~Trat, data = dados)
+anova(modelo) 
+```
+
+Dado que nosso modelo possuí p-value: 2.232e-14 \< 0.05, podemos concluir que há 5% nível de significância ele rejeita H0, logo o modelo é significativo.
+
+#### 8) Um experimento foi conduzido no delineamento em blocos casualizado, com três repetições, para estudar diferentes métodos de controle de plantas daninhas sobre a produção de grãos de milho. Os tratamentos e valores de produção de grãos (t/ha) foram:
+
+```{r}
+SC <- c( 2.9, 3.2, 2.4)
+CM <- c( 8.0, 10.6, 9.8)
+HA_5 <- c(5.6, 6.0, 6.7)
+HB_1 <- c( 7.7, 8.8, 7.9)
+HB_5 <- c( 4.3, 6.5, 5.6)
+HB_1 <- c( 5.5, 5.1, 6.9)
+```
+
+
+
