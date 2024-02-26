@@ -3,10 +3,10 @@ title: "Lista 1 - Planejamento e Análise de Experimentos"
 author: "Bruno Mesquita dos Santo"
 date: "2024-02-26"
 output:
-  pdf_document: default
-  word_document: default
   html_document:
     df_print: paged
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
