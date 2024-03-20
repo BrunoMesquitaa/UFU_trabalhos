@@ -13,6 +13,7 @@ output:
 if (!require('SuppDists'))install.packages("SuppDists");library(SuppDists)
 if (!require('agricolae'))install.packages("agricolae");library(agricolae)
 if (!require('DescTools'))install.packages("DescTools");library(DescTools)
+if (!require('PMCMRplus'))install.packages("PMCMRplus");library(PMCMRplus)
 ```
 
 #### 3) O conjunto de dados seguintes é proveniente de um experimento conduzido para caracterização de quatro variedades de pêra (A, B, C e D) com relação ao peso por fruto, medido em gramas. Foi colhida uma amostra aleatória de cinco frutos para cada variedade. Os valores obtidos foram:
@@ -31,6 +32,11 @@ dados
 ```
 
 ##### a) Testar a homogeneidade de variâncias utilizando o Teste de Hartley.
+
+```{r}
+# hartleyTest(Resp~Trat, data=dados)
+```
+
 
 ```{r}
 var(tratA) 
@@ -101,6 +107,10 @@ H0: Y = 0 \\
 H1: Y \neq 0
 \end{array}\right.
 $$
+
+```{r}
+t.test(tratA,c(tratB,tratC,tratC))
+```
 
 ```{r}
 t.test(tratA,tratB)
